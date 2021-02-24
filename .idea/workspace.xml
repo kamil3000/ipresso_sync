@@ -79,14 +79,15 @@
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\work\IPressoSync" />
-      <recent name="C:\work\IPressoSync\src\Repository" />
-      <recent name="C:\work\IPressoSync\src\Domain" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\work\IPressoSync\src\Services\Token" />
       <recent name="C:\work\IPressoSync\src\Config" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\work\IPressoSync" />
+      <recent name="C:\work\IPressoSync" />
+      <recent name="C:\work\IPressoSync\src\Repository" />
+      <recent name="C:\work\IPressoSync\src\Domain" />
     </key>
   </component>
   <component name="RunManager">
@@ -187,7 +188,7 @@
       <workItem from="1613655618037" duration="18000" />
       <workItem from="1613664159003" duration="1625000" />
       <workItem from="1613674710162" duration="173000" />
-      <workItem from="1614166381421" duration="1461000" />
+      <workItem from="1614166381421" duration="1670000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <created>1535015543178</created>
