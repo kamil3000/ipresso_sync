@@ -1,6 +1,7 @@
 {
   "name": "kkaczy/ipresso-sync",
   "description": "sync package for ipresso",
+  "license": "MIT",
   "authors": [
     {
       "name": "kkaczy",
