@@ -12,7 +12,7 @@
       "Ipresso\\": "src"
     }
   },
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "require": {
     "php": ">=7.1.0",
     "guzzlehttp/guzzle": "6.3.3",
