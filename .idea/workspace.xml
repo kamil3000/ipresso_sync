@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b526ea3f-2f71-42e8-af52-249381356b8c" name="Default" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package_json" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/jeremeamia/SuperClosure" />
+      <path value="$PROJECT_DIR$/vendor/php-di/invoker" />
+      <path value="$PROJECT_DIR$/vendor/php-di/phpdoc-reader" />
+      <path value="$PROJECT_DIR$/vendor/php-di/php-di" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1WzdwrdL2n2tNlrabpjTYXDEh2z" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\work\IPressoSync" />
+      <recent name="C:\work\IPressoSync\src\Repository" />
+      <recent name="C:\work\IPressoSync\src\Domain" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\work\IPressoSync\src\Services\Token" />
+      <recent name="C:\work\IPressoSync\src\Config" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="test2.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/test2.php">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHP Script.test2.php" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b526ea3f-2f71-42e8-af52-249381356b8c" name="Default" comment="" />
+      <created>1533884302377</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1533884302377</updated>
+      <workItem from="1533884303688" duration="37378000" />
+      <workItem from="1533975780982" duration="829000" />
+      <workItem from="1534143634902" duration="2549000" />
+      <workItem from="1534149452436" duration="6610000" />
+      <workItem from="1534186936051" duration="2984000" />
+      <workItem from="1534229652867" duration="21874000" />
+      <workItem from="1534259131281" duration="425000" />
+      <workItem from="1534401490745" duration="22078000" />
+      <workItem from="1534483155491" duration="2527000" />
+      <workItem from="1534755132911" duration="4939000" />
+      <workItem from="1534761735498" duration="5810000" />
+      <workItem from="1534771705228" duration="420000" />
+      <workItem from="1534774074999" duration="296000" />
+      <workItem from="1534774618338" duration="8094000" />
+      <workItem from="1534787851658" duration="9777000" />
+      <workItem from="1534832859747" duration="10970000" />
+      <workItem from="1535005359453" duration="7473000" />
+      <workItem from="1535022137967" duration="53000" />
+      <workItem from="1535099689682" duration="11072000" />
+      <workItem from="1535132519644" duration="1458000" />
+      <workItem from="1535142223703" duration="844000" />
+      <workItem from="1535638835672" duration="6772000" />
+      <workItem from="1535657981271" duration="6158000" />
+      <workItem from="1535703606465" duration="4017000" />
+      <workItem from="1535988324757" duration="2410000" />
+      <workItem from="1536222078731" duration="6840000" />
+      <workItem from="1536234181477" duration="4135000" />
+      <workItem from="1536239705747" duration="417000" />
+      <workItem from="1536240571365" duration="3891000" />
+      <workItem from="1536385709887" duration="174000" />
+      <workItem from="1536386310629" duration="106000" />
+      <workItem from="1536735097479" duration="1903000" />
+      <workItem from="1536763770900" duration="11030000" />
+      <workItem from="1536910607708" duration="873000" />
+      <workItem from="1537235236331" duration="2037000" />
+      <workItem from="1537288270619" duration="478000" />
+      <workItem from="1537346238506" duration="1314000" />
+      <workItem from="1537348842610" duration="77000" />
+      <workItem from="1537428809553" duration="1141000" />
+      <workItem from="1537433758191" duration="626000" />
+      <workItem from="1537559145575" duration="5874000" />
+      <workItem from="1537974944453" duration="440000" />
+      <workItem from="1538553287024" duration="992000" />
+      <workItem from="1538559437937" duration="528000" />
+      <workItem from="1539977333310" duration="79000" />
+      <workItem from="1539979794020" duration="68000" />
+      <workItem from="1539981365499" duration="10000" />
+      <workItem from="1545394793486" duration="1328000" />
+      <workItem from="1545425010063" duration="146000" />
+      <workItem from="1545499087898" duration="205000" />
+      <workItem from="1548497071540" duration="620000" />
+      <workItem from="1549103348904" duration="652000" />
+      <workItem from="1562093467821" duration="303000" />
+      <workItem from="1562093805010" duration="56000" />
+      <workItem from="1562094186248" duration="160000" />
+      <workItem from="1562094385623" duration="111000" />
+      <workItem from="1562094543736" duration="36000" />
+      <workItem from="1580156600585" duration="93000" />
+      <workItem from="1590593238094" duration="492000" />
+      <workItem from="1590683646686" duration="846000" />
+      <workItem from="1591128134777" duration="31000" />
+      <workItem from="1606339753461" duration="730000" />
+      <workItem from="1613655078711" duration="519000" />
+      <workItem from="1613655618037" duration="18000" />
+      <workItem from="1613664159003" duration="1625000" />
+      <workItem from="1613674710162" duration="173000" />
+      <workItem from="1614166381421" duration="1461000" />
+    </task>
+    <task id="LOCAL-00001" summary="first">
+      <created>1535015543178</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1535015543178</updated>
+    </task>
+    <task id="LOCAL-00002" summary="first">
+      <created>1535015586710</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1535015586710</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first" />
+    <option name="LAST_COMMIT_MESSAGE" value="first" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2660" y="122" key="FileChooserDialogImpl" timestamp="1613668115499">
+      <screen x="1920" y="-153" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.129.1920.1040/1920.-153.1920.1040@0.0.1920.1040" timestamp="1613655632200" />
+    <state x="2660" y="122" key="FileChooserDialogImpl/0.0.1920.1040/-1920.129.1920.1040/1920.-153.1920.1040@1920.-153.1920.1040" timestamp="1613668115499" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.-163.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606340682551" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
