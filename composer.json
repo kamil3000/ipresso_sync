@@ -20,8 +20,4 @@
     "php-di/php-di": "^6.0",
     "symfony/http-foundation": "3.4.x-dev"
   }
-  ,
-  "require-dev": {
-    "roave/security-advisories": "dev-master"
-  }
 }
