@@ -42,12 +42,11 @@ return [
     Repo\ApiAttribute::class => function ( Client $client ) {
         return new   Repo\ApiAttribute($client);
     },
-    Client::class => DI\factory(function ( Token $token ) {
-//echo $token->getToken();
+    Client::class => DI\factory(static function (Token $token ) {
+
         return new Client([
-            //           'debug' => true,
             'timeout' => 5.0,
-            'base_uri' => Parameters::CLIENT_PANEL_ADDRESS,
+            'base_uri' => Parameters::getClientUrl(),
             'verify' => false,
             'headers' => [
                 'Content-Type' => 'application/x-www-form-urlencoded',

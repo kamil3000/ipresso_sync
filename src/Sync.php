@@ -9,11 +9,15 @@ namespace Ipresso;
  * Time: 09:32
  */
 
+use Exception;
 use Ipresso\Domain\Contact;
+use Ipresso\Hydrator\ContactHydrator;
 use Ipresso\Repository\AlreadyExistsException;
 use Ipresso\Repository\ContactRepositoryInterface;
 use Ipresso\Security\Authentication;
 use Psr\Container\ContainerInterface;
+use stdClass;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class Sync
@@ -26,7 +30,7 @@ class Sync
         $this->container = Container::get();
     }
 
-    public function addContacts(\Ipresso\Domain\Contact $contact)
+    public function addOrUpdateContacts(Contact $contact): Contact
     {
         try {
             $this->container->get(ContactRepositoryInterface::class)->add($contact);
@@ -92,8 +96,8 @@ class Sync
     {
         try {
             $this->container->get(Authentication::class)->check();
-        } catch (\Exception $exception) {
-            return (new \Symfony\Component\HttpFoundation\JsonResponse(array('error' => $exception->getMessage()), 403))->send();
+        } catch (Exception $exception) {
+            return (new JsonResponse(array('error' => $exception->getMessage()), 403))->send();
         }
         if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
             $this->put($callbackPut);
@@ -104,7 +108,7 @@ class Sync
             exit;
         }
 
-        return (new \Symfony\Component\HttpFoundation\JsonResponse(array('type' => $_SERVER['REQUEST_METHOD']), 405))->send();
+        return (new JsonResponse(array('type' => $_SERVER['REQUEST_METHOD']), 405))->send();
 
 
     }
@@ -114,9 +118,9 @@ class Sync
 
 
         if (!isset($_GET['id_contact']) or empty($_GET['id_contact'])) {
-            return (new \Symfony\Component\HttpFoundation\JsonResponse(array('error' => "bark parametru id_contact​ "), 422))->send();
+            return (new JsonResponse(array('error' => "bark parametru id_contact​ "), 422))->send();
         }
-        $idContact = new \stdClass();
+        $idContact = new stdClass();
 
         foreach ($_GET as $key => $val) {
             $idContact->{$key} = $val;
@@ -134,9 +138,9 @@ class Sync
 
         $body = json_decode(file_get_contents('php://input'), true);
         try {
-            $contact = $this->container->get(\Ipresso\Hydrator\ContactHydrator::class)->hydrate($body['contact']);
-        } catch (\Exception $exception) {
-            return (new \Symfony\Component\HttpFoundation\JsonResponse(array('error' => $exception->getMessage()), 400))->send();
+            $contact = $this->container->get(ContactHydrator::class)->hydrate($body['contact']);
+        } catch (Exception $exception) {
+            return (new JsonResponse(array('error' => $exception->getMessage()), 400))->send();
         }
 
         if (gettype($callback) == 'object') {

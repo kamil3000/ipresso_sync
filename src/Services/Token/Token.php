@@ -27,7 +27,7 @@ class Token
     public function __construct()
     {
         $this->client = new Client([
-            'base_uri' => Parameters::CLIENT_PANEL_ADDRESS,
+            'base_uri' => Parameters::getClientUrl(),
         ]);
     }
 
@@ -36,7 +36,7 @@ class Token
     {
         return $this->token;
 
-        if (session_id() == '') {
+        if (session_id() === '') {
             session_start();
         }
 
@@ -56,10 +56,10 @@ class Token
 
     private function getTokenFromApi()
     {
-        $credentials = base64_encode(Parameters::LOGIN . ':' . Parameters::PASS);
+        $credentials = base64_encode(Parameters::getLogin() . ':' . Parameters::getPass());
 
         /** @var  $response \GuzzleHttp\Psr7\Response */
-        $response = $this->client->request('GET', 'api/2/auth/' . Parameters::CUSTOMER_KEY, ['headers' => [
+        $response = $this->client->request('GET', 'api/2/auth/' . Parameters::getCostumerKey(), ['headers' => [
             'Authorization' => 'Basic ' . $credentials,
         ]]);
         if ($response->getStatusCode() == 200) {
