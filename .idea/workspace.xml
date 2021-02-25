@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b526ea3f-2f71-42e8-af52-249381356b8c" name="Default" comment="first">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,23 +42,22 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
-      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
-      <path value="$PROJECT_DIR$/vendor/jeremeamia/SuperClosure" />
-      <path value="$PROJECT_DIR$/vendor/php-di/invoker" />
-      <path value="$PROJECT_DIR$/vendor/php-di/phpdoc-reader" />
-      <path value="$PROJECT_DIR$/vendor/php-di/php-di" />
-      <path value="$PROJECT_DIR$/vendor/psr/container" />
-      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
-      <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
+      <path value="$PROJECT_DIR$/vendor/jeremeamia/SuperClosure" />
+      <path value="$PROJECT_DIR$/vendor/php-di/phpdoc-reader" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
-      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
-      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
+      <path value="$PROJECT_DIR$/vendor/php-di/invoker" />
+      <path value="$PROJECT_DIR$/vendor/php-di/php-di" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
     </include_path>
   </component>
   <component name="ProjectId" id="1WzdwrdL2n2tNlrabpjTYXDEh2z" />
@@ -193,6 +193,7 @@
       <workItem from="1614166381421" duration="3085000" />
       <workItem from="1614169503453" duration="3384000" />
       <workItem from="1614203299258" duration="29000" />
+      <workItem from="1614205392529" duration="1909000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <created>1535015543178</created>
@@ -229,7 +230,21 @@
       <option name="project" value="LOCAL" />
       <updated>1614174534188</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="first">
+      <created>1614205434171</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1614205434171</updated>
+    </task>
+    <task id="LOCAL-00007" summary="elo 2">
+      <created>1614206591862</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1614206591862</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView">
@@ -246,13 +261,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first" />
-    <option name="LAST_COMMIT_MESSAGE" value="first" />
+    <MESSAGE value="elo 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="elo 2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="615" y="114" key="CommitChangelistDialog2" timestamp="1614174533550">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-1305" y="243" key="CommitChangelistDialog2" timestamp="1614206591014">
+      <screen x="-1920" y="129" width="1920" height="1040" />
     </state>
-    <state x="-1305" y="243" key="CommitChangelistDialog2/0.0.1920.1040/-1920.129.1920.1040/1920.-153.1920.1040@-1920.129.1920.1040" timestamp="1614171193219" />
+    <state x="-1305" y="243" key="CommitChangelistDialog2/0.0.1920.1040/-1920.129.1920.1040/1920.-153.1920.1040@-1920.129.1920.1040" timestamp="1614206591014" />
     <state x="615" y="114" key="CommitChangelistDialog2/0.0.1920.1040/-1920.129.1920.1040/1920.-153.1920.1040@0.0.1920.1040" timestamp="1614174533550" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1614203325568">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -260,11 +276,15 @@
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.129.1920.1040/1920.-153.1920.1040@0.0.1920.1040" timestamp="1614203325568" />
     <state x="2660" y="122" key="FileChooserDialogImpl/0.0.1920.1040/-1920.129.1920.1040/1920.-153.1920.1040@1920.-153.1920.1040" timestamp="1613668115499" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.-163.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1606340682551" />
-    <state x="552" y="242" key="Vcs.Push.Dialog.v2" timestamp="1614174536305">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-1368" y="371" key="Vcs.Push.Dialog.v2" timestamp="1614206616452">
+      <screen x="-1920" y="129" width="1920" height="1040" />
     </state>
-    <state x="-1368" y="371" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.129.1920.1040/1920.-153.1920.1040@-1920.129.1920.1040" timestamp="1614171195711" />
+    <state x="-1368" y="371" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.129.1920.1040/1920.-153.1920.1040@-1920.129.1920.1040" timestamp="1614206616452" />
     <state x="552" y="242" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.129.1920.1040/1920.-153.1920.1040@0.0.1920.1040" timestamp="1614174536305" />
+    <state x="-1146" y="495" key="git4idea.ui.GitTagDialog" timestamp="1614205890920">
+      <screen x="-1920" y="129" width="1920" height="1040" />
+    </state>
+    <state x="-1146" y="495" key="git4idea.ui.GitTagDialog/0.0.1920.1040/-1920.129.1920.1040/1920.-153.1920.1040@-1920.129.1920.1040" timestamp="1614205890920" />
   </component>
   <component name="masterDetails">
     <states>
