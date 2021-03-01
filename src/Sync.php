@@ -16,6 +16,7 @@ use Ipresso\Repository\AlreadyExistsException;
 use Ipresso\Repository\ContactRepositoryInterface;
 use Ipresso\Security\Authentication;
 use Ipresso\Services\ConnactionContact;
+use Ipresso\Validator\ApiAttributeValidator;
 use Ipresso\Validator\ContactValidator;
 use Psr\Container\ContainerInterface;
 use stdClass;
@@ -34,7 +35,8 @@ class Sync
 
     public function addOrUpdateContacts(Contact $contact)
     {
-        $this->container->get(ContactValidator::class)->apiValidation($contact);
+        $this->container->get(ContactValidator::class)->validate($contact);
+        $this->container->get(ApiAttributeValidator::class)->validate($contact);
 
         try {
             $this->container->get(ContactRepositoryInterface::class)->add($contact);

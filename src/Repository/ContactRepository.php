@@ -29,14 +29,14 @@ class ContactRepository implements ContactRepositoryInterface
      * @param Client $client
      * @param ContactHydrator $hydrator
      */
-    public function __construct(Client $client, ContactHydrator $hydrator )
+    public function __construct(Client $client, ContactHydrator $hydrator)
     {
         $this->client = $client;
         $this->hydrator = $hydrator;
     }
 
 
-    public function add( Contact $contact ): Contact
+    public function add(Contact $contact): Contact
     {
         $body['contact'] = array();
 
@@ -54,7 +54,6 @@ class ContactRepository implements ContactRepositoryInterface
 
         if ($response->getStatusCode() == 200) {
             $body = json_decode((string)$response->getBody());
-
 
             if (!($body instanceof stdClass)) {
                 throw new Exception('bład parsowania odpowiedzi');
@@ -83,7 +82,7 @@ class ContactRepository implements ContactRepositoryInterface
 
     }
 
-    public function update( Contact $contact ): Contact
+    public function update(Contact $contact): Contact
     {
         if ($contact->getIdContact() == null) {
             throw new InvalidArgumentException('bark id kontaktu');
@@ -93,7 +92,7 @@ class ContactRepository implements ContactRepositoryInterface
 
 
         /** @var  $response Response */
-        $response = $this->client->put('api/2/contact/'.$contact->getIdContact(), array(
+        $response = $this->client->put('api/2/contact/' . $contact->getIdContact(), array(
             'form_params' => $body
         ));
         if ($response->getStatusCode() == 201) {
@@ -102,7 +101,7 @@ class ContactRepository implements ContactRepositoryInterface
         throw new Exception('nie można updatować zasobu');
     }
 
-    public function getById( $id )
+    public function getById($id)
     {
         /** @var  $response Response */
         $response = $this->client->get('api/2/contact/' . $id);

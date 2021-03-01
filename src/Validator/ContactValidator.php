@@ -6,9 +6,9 @@ use Ipresso\Domain\Contact;
 use Ipresso\Domain\ContactAttribute;
 use Ipresso\Enum\ApiAttributeKey;
 
-class ContactValidator
+class ContactValidator implements ValidatorInterface
 {
-    public function apiValidation(Contact $contact): void
+    public function validate(Contact $contact): void
     {
         $pass = false;
 

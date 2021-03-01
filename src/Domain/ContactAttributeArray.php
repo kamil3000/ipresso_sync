@@ -1,20 +1,20 @@
 <?php
 
+
 namespace Ipresso\Domain;
-/**
- * @deprecated use typed attributes
- */
-class ContactAttribute implements ContactAttributeInterface
+
+
+class ContactAttributeArray implements ContactAttributeInterface
 {
     private string  $key;
-    private string $value;
+    private array $value;
 
     /**
      * ContactAttribute constructor.
      * @param string $key
      * @param string $value
      */
-    public function __construct(string $key, string $value)
+    public function __construct(string $key, array $value = [])
     {
         $this->key = $key;
         $this->value = $value;
@@ -29,12 +29,20 @@ class ContactAttribute implements ContactAttributeInterface
     }
 
     /**
-     * @return string
+     * @return ContactAttributeArrayOption[]
      */
-    public function getValue(): string
+    public function getValue(): array
     {
         return $this->value;
     }
 
+    public function addItem(ContactAttributeArrayOption $option)
+    {
+
+        $this->value[] = $option;
+
+        return $this;
+
+    }
 
 }

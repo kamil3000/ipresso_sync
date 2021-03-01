@@ -8,6 +8,7 @@ use Ipresso\Hydrator\ContactHydrator;
 use Ipresso\Repository as Repo;
 use Ipresso\Security\Authentication;
 use Ipresso\Services\Token\Token;
+use Ipresso\Validator\ApiAttributeValidator;
 use Ipresso\Validator\ContactValidator;
 use presso\Services\ConnactionContact;
 
@@ -21,20 +22,28 @@ return [
     ContactValidator::class => function () {
         return new ContactValidator();
     },
+    ApiAttributeValidator::class => function (Repo\ApiAttribute $apiAttribute) {
+        return new ApiAttributeValidator($apiAttribute);
+    },
     Authentication::class => function (Token $token) {
         return new Authentication($token);
     },
     AttributeHydrator::class => function () {
         return new AttributeHydrator();
     },
-    ContactHydrator::class => static function (Repo\AgreementRepositoryInterface $agreementRepository, Repo\ContactCategoryRepositoryInterface $contactCategoryRepository) {
-        return new ContactHydrator($agreementRepository, $contactCategoryRepository);
+    ContactHydrator::class => static function (
+        Repo\AgreementRepositoryInterface $agreementRepository,
+        Repo\ContactCategoryRepositoryInterface $contactCategoryRepository,
+        Repo\ContactTypeRepositoryInterface $contactTypeRepositoryInterface,
+        Repo\AttributeOptionRepository $attributeOptionRepository,
+        Repo\ApiAttribute $apiAttribute) {
+        return new ContactHydrator($agreementRepository, $contactCategoryRepository, $contactTypeRepositoryInterface, $attributeOptionRepository, $apiAttribute);
     },
     Repo\ContactRepositoryInterface::class => function (Client $client, ContactHydrator $hydrator) {
         return new Repo\ContactRepository($client, $hydrator);
     },
-    Repo\DiseaseUnitRepositoryInterface::class => function (Repo\ApiAttribute $apiAttribute, AttributeHydrator $hydrator) {
-        return new Repo\DiseaseUnitRepository($apiAttribute, $hydrator);
+    Repo\AttributeOptionRepositoryInterface::class => function (Repo\ApiAttribute $apiAttribute, AttributeHydrator $hydrator) {
+        return new Repo\AttributeOptionRepository($apiAttribute, $hydrator);
     },
     Repo\RegistrationRepositoryInterface::class => function (Repo\ApiAttribute $apiAttribute, AttributeHydrator $hydrator) {
         return new Repo\RegistrationRepository($apiAttribute, $hydrator);

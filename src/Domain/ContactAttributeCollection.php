@@ -15,7 +15,7 @@ class ContactAttributeCollection implements Iterator, Countable
 {
     private $var = array();
 
-    public function has(ContactAttribute $agreement): bool
+    public function has(ContactAttributeInterface $agreement): bool
     {
         foreach ($this->var as $item) {
             if ($item == $agreement) {
@@ -25,7 +25,7 @@ class ContactAttributeCollection implements Iterator, Countable
         return false;
     }
 
-    public function add(ContactAttribute $agreement)
+    public function add(ContactAttributeInterface $agreement)
     {
 
         $this->var[] = $agreement;

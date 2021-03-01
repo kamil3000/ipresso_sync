@@ -12,29 +12,45 @@ use Exception;
 use InvalidArgumentException;
 use Ipresso\Domain\Agreement;
 use Ipresso\Domain\Contact;
-use Ipresso\Domain\ContactAttribute;
+use Ipresso\Domain\ContactAttributeArray;
+use Ipresso\Domain\ContactAttributeInt;
+use Ipresso\Domain\ContactAttributeInterface;
+use Ipresso\Domain\ContactAttributeString;
 use Ipresso\Domain\ContactCategory;
 use Ipresso\Repository\AgreementRepositoryInterface;
+use Ipresso\Repository\ApiAttribute;
+use Ipresso\Repository\AttributeOptionRepository;
 use Ipresso\Repository\ContactCategoryRepositoryInterface;
+use Ipresso\Repository\ContactTypeRepositoryInterface;
 
 class ContactHydrator
 {
 
-    /** @var AgreementRepositoryInterface */
-    private $agreementRepository;
+    private AgreementRepositoryInterface $agreementRepository;
 
-    /** @var ContactCategoryRepositoryInterface */
-    private $contactCategoryRepository;
+    private ContactCategoryRepositoryInterface $contactCategoryRepository;
+
+    private ContactTypeRepositoryInterface $contactTypeRepositoryInterface;
+
+    private AttributeOptionRepository $attributeOptionRepository;
+
+    private ApiAttribute $apiAttribute;
 
     /**
      * ContactHydrator constructor.
      * @param AgreementRepositoryInterface $agreementRepository
      * @param ContactCategoryRepositoryInterface $contactCategoryRepository
+     * @param ContactTypeRepositoryInterface $contactTypeRepositoryInterface
+     * @param AttributeOptionRepository $attributeOptionRepository
+     * @param ApiAttribute $apiAttribute
      */
-    public function __construct(AgreementRepositoryInterface $agreementRepository, ContactCategoryRepositoryInterface $contactCategoryRepository)
+    public function __construct(AgreementRepositoryInterface $agreementRepository, ContactCategoryRepositoryInterface $contactCategoryRepository, ContactTypeRepositoryInterface $contactTypeRepositoryInterface, AttributeOptionRepository $attributeOptionRepository, ApiAttribute $apiAttribute)
     {
         $this->agreementRepository = $agreementRepository;
         $this->contactCategoryRepository = $contactCategoryRepository;
+        $this->contactTypeRepositoryInterface = $contactTypeRepositoryInterface;
+        $this->attributeOptionRepository = $attributeOptionRepository;
+        $this->apiAttribute = $apiAttribute;
     }
 
 
@@ -71,8 +87,17 @@ class ContactHydrator
         }
 
         if (count($contact->getContactAttributeCollection()) > 0) {
-            /** @var ContactAttribute $item */
+            /** @var ContactAttributeInterface $item */
             foreach ($contact->getContactAttributeCollection() as $item) {
+
+                if ($item instanceof ContactAttributeArray) {
+                    $row[$item->getKey()] = [];
+                    foreach ($item->getValue() as $attributeArrayOption) {
+                        $row[$item->getKey()][] = $attributeArrayOption->getKey();
+                    }
+                    continue;
+                }
+
                 $row[$item->getKey()] = $item->getValue();
             }
         }
@@ -93,33 +118,55 @@ class ContactHydrator
             throw new Exception('błąd parsowania');
         }
 
-
         $contact = new Contact($data['idContact']);
 
-
+        $a = $this->apiAttribute->getAttribute();
+//        dd($data, $a);
         foreach ($data as $key => $datum) {
 
-            if (is_array($datum) || is_object($datum)) {
-
-                if ($key === 'agreement') {
-                    foreach ($datum as $id => $name) {
-                        $contact->getAgreement()->add($this->agreementRepository->getById($id));
-                    }
+            if ($key === 'agreement') {
+                foreach ($datum as $id => $name) {
+                    $contact->getAgreement()->add($this->agreementRepository->getById($id));
                 }
+                continue;
+            }
 
-                if ($key === 'category') {
-                    foreach ($datum as $id => $name) {
-                        $contact->getCategory()->add($this->contactCategoryRepository->getById($id));
-                    }
+            if ($key === 'category') {
+                foreach ($datum as $id => $name) {
+                    $contact->getCategory()->add($this->contactCategoryRepository->getById($id));
                 }
+                continue;
+            }
 
+            if ($key === 'type') {
+
+                $contact->setContactType($this->contactTypeRepositoryInterface->getByKey($datum));
+            }
+
+            if ((is_array($datum) || is_object($datum)) && $this->apiAttribute->attributeIsset($key)) {
+
+                $attributeArray = new ContactAttributeArray($key, []);
+                foreach ($datum as $attrId => $name) {
+                    $attributeArray->addItem($this->attributeOptionRepository->getById($key, (int)$attrId));
+                }
+                $contact->getContactAttributeCollection()->add($attributeArray);
                 continue;
             }
 
 
             if ($datum !== false) {
+                if (is_int($datum)) {
+                    $contact->getContactAttributeCollection()->add(new ContactAttributeInt($key, $datum));
+                    continue;
+                }
+                if (is_string($datum)) {
+                    $contact->getContactAttributeCollection()->add(new ContactAttributeString($key, $datum));
+                    continue;
+                }
 
-                $contact->getContactAttributeCollection()->add(new ContactAttribute($key, $datum));
+//                dd($key, $datum);
+
+
             }
         }
 

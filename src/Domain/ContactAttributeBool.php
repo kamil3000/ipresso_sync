@@ -1,20 +1,20 @@
 <?php
 
+
 namespace Ipresso\Domain;
-/**
- * @deprecated use typed attributes
- */
-class ContactAttribute implements ContactAttributeInterface
+
+
+class ContactAttributeBool implements ContactAttributeInterface
 {
     private string  $key;
-    private string $value;
+    private ?bool $value;
 
     /**
      * ContactAttribute constructor.
      * @param string $key
      * @param string $value
      */
-    public function __construct(string $key, string $value)
+    public function __construct(string $key, ?bool $value)
     {
         $this->key = $key;
         $this->value = $value;
@@ -31,10 +31,9 @@ class ContactAttribute implements ContactAttributeInterface
     /**
      * @return string
      */
-    public function getValue(): string
+    public function getValue(): ?bool
     {
         return $this->value;
     }
-
 
 }

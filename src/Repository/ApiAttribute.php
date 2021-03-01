@@ -24,7 +24,7 @@ class ApiAttribute
 
     private $attribute;
 
-    public function __construct( Client $client )
+    public function __construct(Client $client)
     {
         $this->client = $client;
         {
@@ -37,9 +37,8 @@ class ApiAttribute
                 $this->attribute = $body->data->attribute;
             }
 
-
         }
-     //    print_r($this->attribute);
+
     }
 
     /**
@@ -48,6 +47,12 @@ class ApiAttribute
     public function getAttribute()
     {
         return $this->attribute;
+    }
+
+
+    public function attributeIsset($name)
+    {
+        return isset($this->attribute->{$name});
     }
 
 
