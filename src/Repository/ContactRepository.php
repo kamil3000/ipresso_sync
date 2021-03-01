@@ -8,9 +8,13 @@
 
 namespace Ipresso\Repository;
 
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
 use Ipresso\Domain\Contact;
 use Ipresso\Hydrator\ContactHydrator;
+use stdClass;
 
 class ContactRepository implements ContactRepositoryInterface
 {
@@ -25,7 +29,7 @@ class ContactRepository implements ContactRepositoryInterface
      * @param Client $client
      * @param ContactHydrator $hydrator
      */
-    public function __construct( Client $client, ContactHydrator $hydrator )
+    public function __construct(Client $client, ContactHydrator $hydrator )
     {
         $this->client = $client;
         $this->hydrator = $hydrator;
@@ -38,7 +42,7 @@ class ContactRepository implements ContactRepositoryInterface
 
         $body['contact'][] = $this->hydrator->extract($contact);
 
-        /** @var  $response \GuzzleHttp\Psr7\Response */
+        /** @var  $response Response */
         $response = $this->client->post('api/2/contact', array(
             'form_params' => $body
         ));
@@ -52,20 +56,19 @@ class ContactRepository implements ContactRepositoryInterface
             $body = json_decode((string)$response->getBody());
 
 
-            if (!($body instanceof \stdClass)) {
-                throw new \Exception('bład parsowania odpowiedzi');
+            if (!($body instanceof stdClass)) {
+                throw new Exception('bład parsowania odpowiedzi');
             }
 
             if (!isset($body->data->contact)) {
-                throw new \Exception('brak pola contact w odpowiedzi');
+                throw new Exception('brak pola contact w odpowiedzi');
             }
-
-
 
             foreach ($body->data->contact as $item) {
 
-                if(!isset($item->id)){
-                    throw new \Exception('brak pola id');
+                if (!isset($item->id)) {
+
+                    throw new Exception('brak pola id ' . json_encode($item));
                 }
 
                 $contact->setIdContact($item->id);
@@ -74,9 +77,7 @@ class ContactRepository implements ContactRepositoryInterface
                 }
             }
 
-
             return $contact;
-
 
         }
 
@@ -85,35 +86,34 @@ class ContactRepository implements ContactRepositoryInterface
     public function update( Contact $contact ): Contact
     {
         if ($contact->getIdContact() == null) {
-            throw new \InvalidArgumentException('bark id kontaktu');
+            throw new InvalidArgumentException('bark id kontaktu');
         }
 
         $body['contact'] = $this->hydrator->extract($contact);
 
 
-
-        /** @var  $response \GuzzleHttp\Psr7\Response */
+        /** @var  $response Response */
         $response = $this->client->put('api/2/contact/'.$contact->getIdContact(), array(
             'form_params' => $body
         ));
         if ($response->getStatusCode() == 201) {
-                return $contact;
+            return $contact;
         }
-        throw new \Exception('nie można updatować zasobu');
+        throw new Exception('nie można updatować zasobu');
     }
 
     public function getById( $id )
     {
-        /** @var  $response \GuzzleHttp\Psr7\Response */
+        /** @var  $response Response */
         $response = $this->client->get('api/2/contact/' . $id);
 
         $body = json_decode((string)$response->getBody());
         if ($response->getStatusCode() == 200) {
-            if (!($body instanceof \stdClass)) {
-                throw new \Exception('bład parsowania odpowiedzi');
+            if (!($body instanceof stdClass)) {
+                throw new Exception('bład parsowania odpowiedzi');
             }
             if (!isset($body->data->contact)) {
-                throw new \Exception('brak pola contact w odpowiedzi');
+                throw new Exception('brak pola contact w odpowiedzi');
             }
 
 

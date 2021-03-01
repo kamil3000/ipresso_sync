@@ -9,12 +9,13 @@
 namespace Ipresso\Hydrator;
 
 
+use ReflectionClass;
+
 class AttributeHydrator
 {
     public function hydrate(array $data, $object)
     {
-        //   echo "<pre>" . print_r($data, true) . "</pre>";
-        $properties = (new \ReflectionClass($object))->getProperties();
+        $properties = (new ReflectionClass($object))->getProperties();
 
         foreach ($properties as $property) {
             if (isset($data[$property->name])) {

@@ -9,7 +9,9 @@
 namespace Ipresso\Security;
 
 
-class NoTokenException extends \Exception
+use Exception;
+
+class NoTokenException extends Exception
 {
-        protected $message = 'No token';
+    protected $message = 'No token';
 }

@@ -9,7 +9,9 @@
 namespace Ipresso\Repository;
 
 
-class AlreadyExistsException extends \Exception
+use Exception;
+
+class AlreadyExistsException extends Exception
 {
 
 }

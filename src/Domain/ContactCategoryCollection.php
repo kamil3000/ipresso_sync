@@ -9,11 +9,13 @@
 namespace Ipresso\Domain;
 
 
-class ContactCategoryCollection implements \Iterator
+use Iterator;
+
+class ContactCategoryCollection implements Iterator
 {
     private $var = array();
 
-    public function has( ContactCategory $category ): bool
+    public function has(ContactCategory $category): bool
     {
         foreach ($this->var as $item) {
             if ($item == $category) {

@@ -8,6 +8,7 @@
 
 namespace Ipresso\Repository;
 
+use Exception;
 use Ipresso\Domain\DiseaseUnit;
 use Ipresso\Hydrator\AttributeHydrator;
 
@@ -22,15 +23,15 @@ class DiseaseUnitRepository implements DiseaseUnitRepositoryInterface
 
     /**
      * DiseaseUnitRepository constructor.
-     * @param \Ipresso\Repository\ApiAttribute $apiAttribute
+     * @param ApiAttribute $apiAttribute
      */
-    public function __construct( \Ipresso\Repository\ApiAttribute $apiAttribute, AttributeHydrator $hydrator )
+    public function __construct(ApiAttribute $apiAttribute, AttributeHydrator $hydrator)
     {
+//dd($apiAttribute);
         if (!isset($apiAttribute->getAttribute()->DiseaseUnit)) {
-            throw new \Exception('barak atrybutu');
+            throw new Exception('barak atrybutu');
         }
         $this->hydrator = $hydrator;
-    //    echo "<pre>".print_r($apiAttribute->getAttribute(),true)."</pre>";exit;
         $this->apiAttribute = $apiAttribute->getAttribute()->DiseaseUnit;
     }
 

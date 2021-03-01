@@ -8,13 +8,14 @@
 
 namespace Ipresso\Domain;
 
+use Countable;
 use Iterator;
 
-class AgreementCollection implements Iterator
+class ContactAttributeCollection implements Iterator, Countable
 {
     private $var = array();
 
-    public function has(Agreement $agreement): bool
+    public function has(ContactAttribute $agreement): bool
     {
         foreach ($this->var as $item) {
             if ($item == $agreement) {
@@ -24,7 +25,7 @@ class AgreementCollection implements Iterator
         return false;
     }
 
-    public function add( Agreement $agreement )
+    public function add(ContactAttribute $agreement)
     {
 
         $this->var[] = $agreement;
@@ -65,4 +66,11 @@ class AgreementCollection implements Iterator
         return $var;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function count()
+    {
+        return count($this->var);
+    }
 }

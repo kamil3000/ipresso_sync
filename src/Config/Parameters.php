@@ -36,7 +36,7 @@ class Parameters
 
     private static function getEnv(string $envName)
     {
-        if (getenv($envName) !== false) {
+        if (getenv($envName) === false) {
             throw new Exception('Env parameter ' . $envName . ' is not set');
         }
 

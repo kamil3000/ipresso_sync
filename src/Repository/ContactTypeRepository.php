@@ -8,9 +8,12 @@
 
 namespace Ipresso\Repository;
 
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 use Ipresso\Domain\ContactType;
 use Ipresso\Hydrator\AttributeHydrator;
+use stdClass;
 
 class ContactTypeRepository implements ContactTypeRepositoryInterface
 {
@@ -33,7 +36,7 @@ class ContactTypeRepository implements ContactTypeRepositoryInterface
         $this->client = $client;
         $this->hydrator = $hydrator;
 
-        /** @var  $response \GuzzleHttp\Psr7\Response */
+        /** @var  $response Response */
         $response = $this->client->get('api/2/type');
 
 
@@ -41,11 +44,11 @@ class ContactTypeRepository implements ContactTypeRepositoryInterface
             $body = json_decode((string)$response->getBody());
 
 
-            if (!($body instanceof \stdClass)) {
-                throw new \Exception('bład parsowania odpowiedzi');
+            if (!($body instanceof stdClass)) {
+                throw new Exception('bład parsowania odpowiedzi');
             }
             if (!isset($body->data->type)) {
-                throw new \Exception('brak pola category w odpowiedzi');
+                throw new Exception('brak pola category w odpowiedzi');
             }
 
             $this->var = $body->data->type;
@@ -55,7 +58,7 @@ class ContactTypeRepository implements ContactTypeRepositoryInterface
 
     public function getByKey( $key ): ContactType
     {
-       foreach ($this->var as $item){
+        foreach ($this->var as $item){
 
             if($item->key == $key){
 
@@ -65,6 +68,6 @@ class ContactTypeRepository implements ContactTypeRepositoryInterface
                     'name' => $item->name
                 ), new ContactType);
             }
-       }
+        }
     }
 }

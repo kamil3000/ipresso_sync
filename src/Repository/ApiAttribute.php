@@ -10,6 +10,7 @@ namespace Ipresso\Repository;
 
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 
 class ApiAttribute
 {
@@ -27,7 +28,7 @@ class ApiAttribute
     {
         $this->client = $client;
         {
-            /** @var  $response \GuzzleHttp\Psr7\Response */
+            /** @var  $response Response */
             $response = $this->client->get('api/2/attribute');
 
             $body = json_decode((string)$response->getBody());

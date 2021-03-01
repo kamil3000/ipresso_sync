@@ -9,6 +9,7 @@
 namespace Ipresso\Repository;
 
 
+use Exception;
 use Ipresso\Domain\SourceOfAddition;
 use Ipresso\Hydrator\AttributeHydrator;
 
@@ -22,13 +23,13 @@ class SourceOfAdditionRepository implements SourceOfAdditionRepositoryInterface
 
     /**
      * DiseaseUnitRepository constructor.
-     * @param \Ipresso\Repository\ApiAttribute $apiAttribute
+     * @param ApiAttribute $apiAttribute
      */
-    public function __construct(\Ipresso\Repository\ApiAttribute $apiAttribute, AttributeHydrator $hydrator)
+    public function __construct(ApiAttribute $apiAttribute, AttributeHydrator $hydrator)
     {
 
         if (!isset($apiAttribute->getAttribute()->SourceOfAddition)) {
-            throw new \Exception('barak atrybutu SourceOfAddition');
+            throw new Exception('barak atrybutu SourceOfAddition');
         }
 
         $this->hydrator = $hydrator;

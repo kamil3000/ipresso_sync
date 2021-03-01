@@ -9,11 +9,13 @@
 namespace Ipresso\Domain;
 
 
-class ContactCollection implements  \Iterator
+use Iterator;
+
+class ContactCollection implements Iterator
 {
     private $var = array();
 
-    public function has( Contact $contact ): bool
+    public function has(Contact $contact): bool
     {
         foreach ($this->var as $item) {
             if ($item == $contact) {

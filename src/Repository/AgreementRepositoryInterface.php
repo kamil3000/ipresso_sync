@@ -9,7 +9,11 @@
 namespace Ipresso\Repository;
 
 
+use Ipresso\Domain\Agreement;
+
 interface AgreementRepositoryInterface
 {
-        public  function getById($key);
+    public function getById(int $key): Agreement;
+
+    public function getByName(string $name): Agreement;
 }

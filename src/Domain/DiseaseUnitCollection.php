@@ -9,11 +9,13 @@
 namespace Ipresso\Domain;
 
 
-class DiseaseUnitCollection implements \Iterator
+use Iterator;
+
+class DiseaseUnitCollection implements Iterator
 {
     private $var = array();
 
-    public function has( DiseaseUnit $diseaseUnit ): bool
+    public function has(DiseaseUnit $diseaseUnit): bool
     {
         foreach ($this->var as $item) {
             if ($item == $diseaseUnit) {

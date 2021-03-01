@@ -12,5 +12,7 @@ use Ipresso\Domain\ContactCategory;
 
 interface ContactCategoryRepositoryInterface
 {
-        public function getById($id) : ContactCategory;
+    public function getById(int $id): ContactCategory;
+
+    public function getByKey(string $key): ContactCategory;
 }

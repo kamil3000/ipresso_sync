@@ -15,6 +15,8 @@ use Ipresso\Hydrator\ContactHydrator;
 use Ipresso\Repository\AlreadyExistsException;
 use Ipresso\Repository\ContactRepositoryInterface;
 use Ipresso\Security\Authentication;
+use Ipresso\Services\ConnactionContact;
+use Ipresso\Validator\ContactValidator;
 use Psr\Container\ContainerInterface;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,8 +32,10 @@ class Sync
         $this->container = Container::get();
     }
 
-    public function addOrUpdateContacts(Contact $contact): Contact
+    public function addOrUpdateContacts(Contact $contact)
     {
+        $this->container->get(ContactValidator::class)->apiValidation($contact);
+
         try {
             $this->container->get(ContactRepositoryInterface::class)->add($contact);
         } catch (AlreadyExistsException $exception) {
@@ -40,37 +44,6 @@ class Sync
             /** @var  $contactToUpdate Contact */
             $contactToUpdate = $this->container->get(ContactRepositoryInterface::class)->getById($exception->getMessage());
 
-
-            if (!empty($contact->getFormContent())) {
-                $contactToUpdate
-                    ->setFormContent($contact->getFormContent());
-            }
-
-            if (!empty($contact->getFname())) {
-                $contactToUpdate
-                    ->setFname($contact->getFname());
-            }
-
-            if (!empty($contact->getLname())) {
-                $contactToUpdate
-                    ->setLname($contact->getLname());
-            }
-
-            if (!empty($contact->getPhone())) {
-                $contactToUpdate
-                    ->setPhone($contact->getPhone());
-            }
-
-            if (!empty($contact->getMobile())) {
-                $contactToUpdate
-                    ->setMobile($contact->getMobile());
-            }
-
-            foreach ($contact->getDiseaseUnit() as $diseaseUnit) {
-                if (!$contactToUpdate->getDiseaseUnit()->has($diseaseUnit)) {
-                    $contactToUpdate->getDiseaseUnit()->add($diseaseUnit);
-                }
-            }
 
             foreach ($contact->getCategory() as $category) {
 
@@ -90,6 +63,12 @@ class Sync
         }
 
         return $contact;
+    }
+
+
+    public function connactionContact(Contact $contactParent, Contact $contactChild)
+    {
+        return $this->container->get(ConnactionContact::class)->exec($contactParent, $contactChild);
     }
 
     public function endpoint($callbackPut = null, $callbackDelete = null)

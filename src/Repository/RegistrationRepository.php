@@ -8,6 +8,7 @@
 
 namespace Ipresso\Repository;
 
+use Exception;
 use Ipresso\Domain\Registration;
 use Ipresso\Hydrator\AttributeHydrator;
 
@@ -22,15 +23,15 @@ class RegistrationRepository implements RegistrationRepositoryInterface
 
     /**
      * DiseaseUnitRepository constructor.
-     * @param \Ipresso\Repository\ApiAttribute $apiAttribute
+     * @param ApiAttribute $apiAttribute
      */
-    public function __construct( \Ipresso\Repository\ApiAttribute $apiAttribute, AttributeHydrator $hydrator )
+    public function __construct(ApiAttribute $apiAttribute, AttributeHydrator $hydrator)
     {
         if (!isset($apiAttribute->getAttribute()->Registration)) {
-            throw new \Exception('barak atrybutu');
+            throw new Exception('barak atrybutu');
         }
         $this->hydrator = $hydrator;
-      //  echo "<pre>".print_r($apiAttribute->getAttribute(),true)."</pre>";exit;
+        //  echo "<pre>".print_r($apiAttribute->getAttribute(),true)."</pre>";exit;
         $this->apiAttribute = $apiAttribute->getAttribute()->Registration;
     }
 

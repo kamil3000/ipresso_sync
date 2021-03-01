@@ -8,9 +8,12 @@
 
 namespace Ipresso\Repository;
 
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 use Ipresso\Domain\Agreement;
 use Ipresso\Hydrator\AttributeHydrator;
+use stdClass;
 
 class AgreementRepository implements AgreementRepositoryInterface
 {
@@ -23,46 +26,59 @@ class AgreementRepository implements AgreementRepositoryInterface
 
     /**
      * DiseaseUnitRepository constructor.
-     * @param \Ipresso\Repository\ApiAttribute $apiAttribute
+     * @param ApiAttribute $apiAttribute
      */
-    public function __construct( Client $client, AttributeHydrator $hydrator )
+    public function __construct(Client $client, AttributeHydrator $hydrator)
     {
         $this->client = $client;
         $this->hydrator = $hydrator;
 
-        /** @var  $response \GuzzleHttp\Psr7\Response */
+        /** @var  $response Response */
         $response = $this->client->get('api/2/agreement');
 
 
         if ($response->getStatusCode() == 200) {
             $body = json_decode((string)$response->getBody());
 
-            if (!($body instanceof \stdClass)) {
-                throw new \Exception('bład parsowania odpowiedzi');
+            if (!($body instanceof stdClass)) {
+                throw new Exception('bład parsowania odpowiedzi');
             }
             if (!isset($body->data->agreement)) {
-                throw new \Exception('brak pola category w odpowiedzi');
+                throw new Exception('brak pola category w odpowiedzi');
             }
-
 
             $this->var = $body->data->agreement;
         }
 
     }
 
-    public function getById( $id )
+    public function getById(int $id): Agreement
     {
-        foreach ($this->var as $item){
-
-            if($item->id == $id){
-
-                return $this->hydrator->hydrate(array(
-                    'id' => $item->id,
-                    'descr' => $item->descr,
-                    'name' => $item->name,
-                    'cantDelete' => $item->cant_delete
-                ), new Agreement());
+        foreach ($this->var as $item) {
+            if ($item->id == $id) {
+                return $this->factory($item);
             }
         }
+        throw new NotFoundException('nie znaleziono atrybutu: ' . $id);
+    }
+
+    public function getByName(string $name): Agreement
+    {
+        foreach ($this->var as $item) {
+            if ($item->name === $name) {
+                return $this->factory($item);
+            }
+        }
+        throw new NotFoundException('nie znaleziono atrybutu: ' . $id);
+    }
+
+    private function factory($item): Agreement
+    {
+        return $this->hydrator->hydrate(array(
+            'id' => $item->id,
+            'descr' => $item->descr,
+            'name' => $item->name,
+            'cantDelete' => $item->cant_delete
+        ), new Agreement());
     }
 }

@@ -9,7 +9,9 @@
 namespace Ipresso\Security;
 
 
-class WrongTokenException extends \Exception
+use Exception;
+
+class WrongTokenException extends Exception
 {
-        protected $message = 'Wrong token';
+    protected $message = 'Wrong token';
 }

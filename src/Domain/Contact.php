@@ -11,345 +11,76 @@ namespace Ipresso\Domain;
  */
 class Contact
 {
-    /** @var int */
-    private $idContact;
+    private ContactAttributeCollection $contactAttributeCollection;
 
-    /** @var string */
-    private $fname;
+    private ContactCategoryCollection $category;
 
-    /** @var string */
-    private $lname;
+    private AgreementCollection $agreement;
 
-    /** @var string */
-    private $mobile;
+    private ?int $idContact;
 
-    /** @var string */
-    private $phone;
-
-    /** @var string */
-    private $email;
-
-    /** @var boolean */
-    private $moreThanq18;
-
-    /** @var  ContactType */
-    private $type;
-
-    /** @var ContactCategoryCollection */
-    private $category;
-
-    /** @var  \DateTime */
-    private $DateOfBirth;
-
-    /** @var DiseaseUnitCollection */
-    private $DiseaseUnit;
-
-    /** @var SourceOfAddition */
-    private $SourceOfAddition;
+    private ?ContactType $contactType = null;
 
 
-    /** @var AgreementCollection */
-    private $agreement;
-
-    /** @var string */
-    private $FormContent;
-
-    /** @var Registration */
-    private $registration;
-
-    /** @var \DateTime */
-    private $dateOfRegistration;
-
-    /**
-     * @return \DateTime
-     */
-    public function getDateOfRegistration()
+    public function __construct($idContact = null)
     {
-        return $this->dateOfRegistration;
-    }
-
-    /**
-     * @param \DateTime $dateOfRegistration
-     * @return Contact
-     */
-    public function setDateOfRegistration(\DateTime $dateOfRegistration): Contact
-    {
-        $this->dateOfRegistration = $dateOfRegistration;
-        return $this;
-    }
-
-
-    /**
-     * @return Registration
-     */
-    public function getRegistration()
-    {
-        return $this->registration;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getMoreThanq18()
-    {
-        return $this->moreThanq18;
-    }
-
-    /**
-     * @param bool $moreThanq18
-     * @return Contact
-     */
-    public function setMoreThanq18(bool $moreThanq18): Contact
-    {
-        $this->moreThanq18 = $moreThanq18;
-        return $this;
-    }
-
-
-    /**
-     * @param Registration $registration
-     * @return Contact
-     */
-    public function setRegistration(Registration $registration)
-    {
-        $this->registration = $registration;
-        return $this;
-    }
-
-
-    /**
-     * @return int
-     */
-    public function getIdContact()
-    {
-        return $this->idContact;
-    }
-
-    /**
-     * @param int $idContact
-     * @return Contact
-     */
-    public function setIdContact(int $idContact): Contact
-    {
+        $this->contactAttributeCollection = new ContactAttributeCollection;
+        $this->category = new ContactCategoryCollection;
+        $this->agreement = new AgreementCollection;
         $this->idContact = $idContact;
-        return $this;
     }
 
     /**
-     * @return string
+     * @return ContactType
      */
-    public function getPhone()
+    public function getContactType(): ?ContactType
     {
-        return $this->phone;
-    }
-
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-        return $this;
-    }
-
-
-    /**
-     * @return DiseaseUnitCollection
-     */
-    public function getDiseaseUnit()
-    {
-        return $this->DiseaseUnit;
+        return $this->contactType;
     }
 
     /**
-     * @param DiseaseUnitCollection $DiseaseUnit
-     * @return Contact
+     * @param ContactType $contactType
      */
-    public function setDiseaseUnit(DiseaseUnitCollection $DiseaseUnit): Contact
+    public function setContactType(ContactType $contactType): void
     {
-        $this->DiseaseUnit = $DiseaseUnit;
-        return $this;
+        $this->contactType = $contactType;
     }
 
 
     /**
-     * @return SourceOfAddition
+     * @return ContactAttributeCollection
      */
-    public function getSourceOfAddition()
+    public function getContactAttributeCollection(): ContactAttributeCollection
     {
-        return $this->SourceOfAddition;
-    }
-
-    /**
-     * @param SourceOfAddition $SourceOfAddition
-     * @return Contact
-     */
-    public function setSourceOfAddition(SourceOfAddition $SourceOfAddition): Contact
-    {
-        $this->SourceOfAddition = $SourceOfAddition;
-        return $this;
+        return $this->contactAttributeCollection;
     }
 
 
-    /**
-     * @return ContactCategory
-     */
-    public function getCategory()
+    public function getCategory(): ContactCategoryCollection
     {
         return $this->category;
     }
 
     /**
-     * @param ContactCategory $category
-     * @return Contact
+     * @param int|null $idContact
      */
-    public function setCategory(ContactCategoryCollection $category)
+    public function setIdContact(?int $idContact): void
     {
-        $this->category = $category;
-        return $this;
+        $this->idContact = $idContact;
     }
 
 
-    /**
-     * @return \Ipresso\Domain\ContactType
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param \Ipresso\Domain\ContactType $type
-     * @return Contact
-     */
-    public function setType(ContactType $type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getFname()
-    {
-        return $this->fname;
-    }
-
-    /**
-     * @param string $fname
-     * @return Contact
-     */
-    public function setFname($fname)
-    {
-        $this->fname = $fname;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLname()
-    {
-        return $this->lname;
-    }
-
-    /**
-     * @param string $lname
-     * @return Contact
-     */
-    public function setLname($lname)
-    {
-        $this->lname = $lname;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMobile()
-    {
-        return $this->mobile;
-    }
-
-    /**
-     * @param string $phone
-     * @return Contact
-     */
-    public function setMobile($mobile)
-    {
-        $this->mobile = $mobile;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     * @return Contact
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDateOfBirth()
-    {
-        return $this->DateOfBirth;
-    }
-
-    /**
-     * @param \DateTime $DateOfBirth
-     * @return Contact
-     */
-    public function setDateOfBirth($DateOfBirth)
-    {
-        $this->DateOfBirth = $DateOfBirth;
-        return $this;
-    }
-
-    /**
-     * @return AgreementCollection
-     */
-    public function getAgreement()
+    public function getAgreement(): AgreementCollection
     {
         return $this->agreement;
     }
 
     /**
-     * @param AgreementCollection $agreement
-     * @return Contact
+     * @return int|null
      */
-    public function setAgreement(AgreementCollection $agreement): Contact
+    public function getIdContact(): ?int
     {
-        $this->agreement = $agreement;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFormContent()
-    {
-        return $this->FormContent;
-    }
-
-    /**
-     * @param string $FormContent
-     * @return Contact
-     */
-    public function setFormContent(string $FormContent): Contact
-    {
-        $this->FormContent = $FormContent;
-        return $this;
+        return $this->idContact;
     }
 
 
