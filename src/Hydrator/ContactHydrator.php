@@ -26,15 +26,20 @@ use Ipresso\Repository\ContactTypeRepositoryInterface;
 class ContactHydrator
 {
 
-    private AgreementRepositoryInterface $agreementRepository;
+    /** @var AgreementRepositoryInterface  */
+    private $agreementRepository;
 
-    private ContactCategoryRepositoryInterface $contactCategoryRepository;
+    /** @var ContactCategoryRepositoryInterface  */
+    private $contactCategoryRepository;
 
-    private ContactTypeRepositoryInterface $contactTypeRepositoryInterface;
+    /** @var ContactTypeRepositoryInterface  */
+    private $contactTypeRepositoryInterface;
 
-    private AttributeOptionRepository $attributeOptionRepository;
+    /** @var AttributeOptionRepository  */
+    private $attributeOptionRepository;
 
-    private ApiAttribute $apiAttribute;
+    /** @var ApiAttribute  */
+    private $apiAttribute;
 
     /**
      * ContactHydrator constructor.
