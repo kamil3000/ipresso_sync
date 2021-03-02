@@ -6,8 +6,11 @@ namespace Ipresso\Domain;
 
 class ContactAttributeArray implements ContactAttributeInterface
 {
-    private string  $key;
-    private array $value;
+    /** @var string  */
+    private $key;
+
+    /** @var ContactAttributeArrayOption[] */
+    private  $value;
 
     /**
      * ContactAttribute constructor.

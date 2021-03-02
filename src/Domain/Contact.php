@@ -11,15 +11,20 @@ namespace Ipresso\Domain;
  */
 class Contact
 {
-    private ContactAttributeCollection $contactAttributeCollection;
+    /** @var ContactAttributeCollection  */
+    private  $contactAttributeCollection;
 
-    private ContactCategoryCollection $category;
+    /** @var ContactCategoryCollection  */
+    private  $category;
 
-    private AgreementCollection $agreement;
+    /** @var AgreementCollection  */
+    private  $agreement;
 
-    private ?int $idContact;
+    /** @var int|null  */
+    private  $idContact;
 
-    private ?ContactType $contactType = null;
+    /** @var ContactType|null  */
+    private  $contactType = null;
 
 
     public function __construct($idContact = null)

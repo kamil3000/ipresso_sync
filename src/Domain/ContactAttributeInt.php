@@ -6,8 +6,11 @@ namespace Ipresso\Domain;
 
 class ContactAttributeInt implements ContactAttributeInterface
 {
-    private string  $key;
-    private ?int $value;
+    /** @var string  */
+    private $key;
+
+    /** @var int|null  */
+    private $value;
 
     /**
      * ContactAttribute constructor.
@@ -28,9 +31,7 @@ class ContactAttributeInt implements ContactAttributeInterface
         return $this->key;
     }
 
-    /**
-     * @return string
-     */
+
     public function getValue(): ?int
     {
         return $this->value;

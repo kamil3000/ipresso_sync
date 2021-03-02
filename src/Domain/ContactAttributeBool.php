@@ -6,8 +6,11 @@ namespace Ipresso\Domain;
 
 class ContactAttributeBool implements ContactAttributeInterface
 {
-    private string  $key;
-    private ?bool $value;
+    /** @var string  */
+    private  $key;
+
+    /** @var bool|null  */
+    private  $value;
 
     /**
      * ContactAttribute constructor.
@@ -28,9 +31,7 @@ class ContactAttributeBool implements ContactAttributeInterface
         return $this->key;
     }
 
-    /**
-     * @return string
-     */
+
     public function getValue(): ?bool
     {
         return $this->value;

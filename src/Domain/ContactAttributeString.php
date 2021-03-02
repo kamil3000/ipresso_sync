@@ -6,8 +6,11 @@ namespace Ipresso\Domain;
 
 class ContactAttributeString implements ContactAttributeInterface
 {
-    private string  $key;
-    private ?string $value;
+    /** @var string  */
+    private  $key;
+
+    /** @var string|null  */
+    private $value;
 
     /**
      * ContactAttribute constructor.

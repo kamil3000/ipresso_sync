@@ -11,6 +11,7 @@ namespace Ipresso\Repository;
 use Exception;
 use Ipresso\Domain\ContactAttributeArrayOption;
 use Ipresso\Hydrator\AttributeHydrator;
+use Ipresso\Hydrator\ContactHydrator;
 
 class AttributeOptionRepository implements AttributeOptionRepositoryInterface
 {
