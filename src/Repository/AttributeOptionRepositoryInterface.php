@@ -12,7 +12,7 @@ use Ipresso\Domain\ContactAttributeArrayOption;
 
 interface AttributeOptionRepositoryInterface
 {
-    public function getByKey($attr, $key): ContactAttributeArrayOption;
+    public function getByKey($attr,$key) : ContactAttributeArrayOption;
 
-    public function getById($attr, $id): ContactAttributeArrayOption;
+    public function getById($attr,$id) : ContactAttributeArrayOption;
 }

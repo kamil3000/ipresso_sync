@@ -13,16 +13,27 @@ use Iterator;
 
 class ContactAttributeCollection implements Iterator, Countable
 {
+    /** @var ContactAttributeInterface[] */
     private $var = array();
 
-    public function has(ContactAttributeInterface $agreement): bool
+    public function has(ContactAttributeInterface $contactAttribute): bool
     {
         foreach ($this->var as $item) {
-            if ($item == $agreement) {
+            if ($item == $contactAttribute) {
                 return true;
             }
         }
         return false;
+    }
+
+    public function getByKey(string $key): ?ContactAttributeInterface
+    {
+        foreach ($this->var as $item) {
+            if ($item->getKey() === $key) {
+                return $item;
+            }
+        }
+        return null;
     }
 
     public function add(ContactAttributeInterface $agreement)

@@ -35,5 +35,5 @@ class ContactAttributeString implements ContactAttributeInterface
     {
         return $this->value;
     }
-
+    
 }

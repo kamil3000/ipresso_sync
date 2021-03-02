@@ -41,7 +41,7 @@ class ContactRepository implements ContactRepositoryInterface
         $body['contact'] = array();
 
         $body['contact'][] = $this->hydrator->extract($contact);
-
+ 
         /** @var  $response Response */
         $response = $this->client->post('api/2/contact', array(
             'form_params' => $body
@@ -67,7 +67,7 @@ class ContactRepository implements ContactRepositoryInterface
 
                 if (!isset($item->id)) {
 
-                    throw new Exception('brak pola id ' . json_encode($item));
+                    throw new Exception('peyload not recognized ' . json_encode($item));
                 }
 
                 $contact->setIdContact($item->id);

@@ -8,6 +8,7 @@
 
 namespace Ipresso\Repository;
 
+use Exception;
 use Ipresso\Domain\ContactAttributeArrayOption;
 use Ipresso\Hydrator\AttributeHydrator;
 
@@ -28,7 +29,7 @@ class AttributeOptionRepository implements AttributeOptionRepositoryInterface
         $this->apiAttribute = $apiAttribute->getAttribute();
     }
 
-    public function getByKey($attr, $key): ContactAttributeArrayOption
+    public function getByKey($attr, $key ): ContactAttributeArrayOption
     {
         foreach ($this->apiAttribute->{$attr}->optionsByKey as $k => $v) {
             if ($k == $key) {
@@ -43,7 +44,7 @@ class AttributeOptionRepository implements AttributeOptionRepositoryInterface
         throw new NotFoundException('nie znaleziono atrybutu');
     }
 
-    public function getById($attr, $id): ContactAttributeArrayOption
+    public function getById($attr, $id ): ContactAttributeArrayOption
     {
         foreach ($this->apiAttribute->{$attr}->optionsByKey as $k => $v) {
             if ($id == $v) {

@@ -4,7 +4,7 @@ namespace Ipresso\Domain;
 /**
  * @deprecated use typed attributes
  */
-class ContactAttribute implements ContactAttributeInterface
+class ContactAttribute implements  ContactAttributeInterface
 {
     private string  $key;
     private string $value;

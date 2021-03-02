@@ -14,7 +14,7 @@ class ContactAttributeBool implements ContactAttributeInterface
      * @param string $key
      * @param string $value
      */
-    public function __construct(string $key, ?bool $value)
+    public function __construct(string $key,?bool $value)
     {
         $this->key = $key;
         $this->value = $value;

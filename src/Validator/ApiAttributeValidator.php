@@ -3,11 +3,10 @@
 
 namespace Ipresso\Validator;
 
-use Ipresso\Domain\Contact;
-use Ipresso\Domain\ContactAttributeArray;
-use Ipresso\Domain\ContactAttributeArrayOption;
-use Ipresso\Domain\ContactAttributeInterface;
 use Ipresso\Repository\ApiAttribute;
+use Ipresso\Domain\Contact;
+use Ipresso\Domain\ContactAttributeInterface;
+use Ipresso\Domain\ContactAttributeArrayOption;
 
 class ApiAttributeValidator implements ValidatorInterface
 {
@@ -34,11 +33,11 @@ class ApiAttributeValidator implements ValidatorInterface
                 throw new ValidatorException('attribute ' . $item->getKey() . ' does not exist in iPresso');
             }
 
-            if ($item instanceof ContactAttributeArray) {
+            if ($item instanceof \Ipresso\Domain\ContactAttributeArray) {
 
                 foreach ($item->getValue() as $option) {
-                    if (!$this->getApiAttributeOption($apiAttribute, $option)) {
-                        throw new ValidatorException('attribute option ' . $option->getKey() . ' does not match ' . $item->getKey());
+                    if(!$this->getApiAttributeOption($apiAttribute, $option)){
+                        throw new ValidatorException('attribute option ' . $option->getKey() . ' does not match '.$item->getKey());
                     }
                 }
             }
@@ -50,7 +49,7 @@ class ApiAttributeValidator implements ValidatorInterface
 
     }
 
-    private function getApiAttributeOption($apiAttribute, ContactAttributeArrayOption $option): bool
+    private function getApiAttributeOption($apiAttribute, ContactAttributeArrayOption $option):bool
     {
         foreach ($apiAttribute->optionsByKey as $key => $value) {
             if ((int)$value === $option->getId() && $key === $option->getKey()) {

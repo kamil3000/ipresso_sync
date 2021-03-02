@@ -14,7 +14,7 @@ class ContactAttributeInt implements ContactAttributeInterface
      * @param string $key
      * @param string $value
      */
-    public function __construct(string $key, ?int $value)
+    public function __construct(string $key,?int $value)
     {
         $this->key = $key;
         $this->value = $value;

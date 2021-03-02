@@ -18,9 +18,9 @@ use Ipresso\Domain\ContactAttributeInterface;
 use Ipresso\Domain\ContactAttributeString;
 use Ipresso\Domain\ContactCategory;
 use Ipresso\Repository\AgreementRepositoryInterface;
-use Ipresso\Repository\ApiAttribute;
 use Ipresso\Repository\AttributeOptionRepository;
 use Ipresso\Repository\ContactCategoryRepositoryInterface;
+use Ipresso\Repository\ApiAttribute;
 use Ipresso\Repository\ContactTypeRepositoryInterface;
 
 class ContactHydrator
@@ -140,7 +140,7 @@ class ContactHydrator
 
             if ($key === 'type') {
 
-                $contact->setContactType($this->contactTypeRepositoryInterface->getByKey($datum));
+                 $contact->setContactType($this->contactTypeRepositoryInterface->getByKey($datum));
             }
 
             if ((is_array($datum) || is_object($datum)) && $this->apiAttribute->attributeIsset($key)) {

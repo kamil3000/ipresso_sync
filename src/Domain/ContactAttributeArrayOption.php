@@ -27,7 +27,7 @@ class ContactAttributeArrayOption
      * @param int $id
      * @return DiseaseUnit
      */
-    public function setId(int $id): ContactAttributeArrayOption
+    public function setId( int $id ): ContactAttributeArrayOption
     {
         $this->id = $id;
         return $this;
@@ -45,7 +45,7 @@ class ContactAttributeArrayOption
      * @param string $key
      * @return DiseaseUnit
      */
-    public function setKey(string $key): ContactAttributeArrayOption
+    public function setKey( string $key ): ContactAttributeArrayOption
     {
         $this->key = $key;
         return $this;
@@ -63,7 +63,7 @@ class ContactAttributeArrayOption
      * @param string $name
      * @return DiseaseUnit
      */
-    public function setName(string $name): ContactAttributeArrayOption
+    public function setName( string $name ): ContactAttributeArrayOption
     {
         $this->name = $name;
         return $this;

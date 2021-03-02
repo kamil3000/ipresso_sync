@@ -8,8 +8,8 @@ use Ipresso\Hydrator\ContactHydrator;
 use Ipresso\Repository as Repo;
 use Ipresso\Security\Authentication;
 use Ipresso\Services\Token\Token;
-use Ipresso\Validator\ApiAttributeValidator;
 use Ipresso\Validator\ContactValidator;
+use Ipresso\Validator\ApiAttributeValidator;
 use presso\Services\ConnactionContact;
 
 return [
@@ -37,7 +37,7 @@ return [
         Repo\ContactTypeRepositoryInterface $contactTypeRepositoryInterface,
         Repo\AttributeOptionRepository $attributeOptionRepository,
         Repo\ApiAttribute $apiAttribute) {
-        return new ContactHydrator($agreementRepository, $contactCategoryRepository, $contactTypeRepositoryInterface, $attributeOptionRepository, $apiAttribute);
+        return new ContactHydrator($agreementRepository, $contactCategoryRepository,$contactTypeRepositoryInterface, $attributeOptionRepository, $apiAttribute);
     },
     Repo\ContactRepositoryInterface::class => function (Client $client, ContactHydrator $hydrator) {
         return new Repo\ContactRepository($client, $hydrator);
