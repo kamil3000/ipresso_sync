@@ -11,6 +11,7 @@ namespace Ipresso;
 
 use Exception;
 use Ipresso\Domain\Contact;
+use Ipresso\Domain\Tag;
 use Ipresso\Hydrator\ContactHydrator;
 use Ipresso\Repository\AlreadyExistsException;
 use Ipresso\Repository\ContactRepositoryInterface;
@@ -31,6 +32,10 @@ class Sync
     public function __construct()
     {
         $this->container = Container::get();
+    }
+    public function addTag(Tag $tag){
+
+
     }
 
     public function addOrUpdateContacts(Contact $contact)

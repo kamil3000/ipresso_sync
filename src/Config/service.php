@@ -10,9 +10,13 @@ use Ipresso\Security\Authentication;
 use Ipresso\Services\Token\Token;
 use Ipresso\Validator\ContactValidator;
 use Ipresso\Validator\ApiAttributeValidator;
-use presso\Services\ConnactionContact;
+use Ipresso\Services\ConnactionContact;
+use Ipresso\Factory\DomianObjectFactory;
 
 return [
+    DomianObjectFactory::class => function (){
+        return new DomianObjectFactory();
+    },
     ConnactionContact::class => function (Correspondent $correspondent) {
         return new ConnactionContact($correspondent);
     },
@@ -38,6 +42,12 @@ return [
         Repo\AttributeOptionRepository $attributeOptionRepository,
         Repo\ApiAttribute $apiAttribute) {
         return new ContactHydrator($agreementRepository, $contactCategoryRepository,$contactTypeRepositoryInterface, $attributeOptionRepository, $apiAttribute);
+    },
+    Repo\ActivityRepository::class => function (Client $client, DomianObjectFactory $hydrator) {
+        return new Repo\ActivityRepository($client,$hydrator);
+    },
+    Repo\TagRepository::class => function (Client $client, DomianObjectFactory $hydrator) {
+        return new Repo\TagRepository($client, $hydrator);
     },
     Repo\ContactRepositoryInterface::class => function (Client $client, ContactHydrator $hydrator) {
         return new Repo\ContactRepository($client, $hydrator);

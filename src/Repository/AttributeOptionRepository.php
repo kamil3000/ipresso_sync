@@ -32,6 +32,7 @@ class AttributeOptionRepository implements AttributeOptionRepositoryInterface
 
     public function getByKey($attr, $key ): ContactAttributeArrayOption
     {
+
         foreach ($this->apiAttribute->{$attr}->optionsByKey as $k => $v) {
             if ($k == $key) {
                 return $this->hydrator->hydrate(array(
