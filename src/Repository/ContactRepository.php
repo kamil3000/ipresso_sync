@@ -43,8 +43,6 @@ class ContactRepository implements ContactRepositoryInterface
 
         $body = json_decode((string)$response->getBody());
 
-        dd($body);
-
 
     }
 
@@ -61,8 +59,6 @@ class ContactRepository implements ContactRepositoryInterface
         $response = $this->client->post($url, array(
             'form_params' => $body,
         ));
-
-        dd($response);
 
     }
 
