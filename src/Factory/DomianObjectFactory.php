@@ -56,9 +56,12 @@ class DomianObjectFactory
                         break;
                     default:
                         $propertyClass = null;
+
                         if (class_exists($propertyClassName)) {
                             $propertyClass = new $propertyClassName();
+
                             if ($propertyClass instanceof AbstractCollection && is_array($data[$property->name])) {
+
 
                                 /** @var \ReflectionProperty $propertyClassProperties */
                                 $propertyClassProperties = (new ReflectionClass($propertyClass))->getProperty('var');
@@ -69,8 +72,15 @@ class DomianObjectFactory
 
                                 $collectionItemClassCollection = [];
                                 if (class_exists($collectionItemClassName)) {
-                                    foreach ($data[$property->name] as $rawCollectionItem) {
-                                        $collectionItemClassCollection[] = $this->factory($rawCollectionItem, $collectionItemClassName);
+                                    foreach ($data[$property->name] as $rawCollectionItemKey => $rawCollectionItemValue) {
+                                        if(is_array($rawCollectionItemValue)){
+                                            $collectionItemClassCollection[] = $this->factory($rawCollectionItemValue, $collectionItemClassName);
+                                        }else{
+                                            $collectionItemClassCollection[] = $this->factory([
+                                                'key' => $rawCollectionItemKey,
+                                                'value' => $rawCollectionItemValue
+                                            ], $collectionItemClassName);
+                                        }
                                     }
                                 }
 

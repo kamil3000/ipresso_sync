@@ -4,11 +4,48 @@
 namespace Ipresso\Domain;
 
 
-class  Activity
+use DateTime;
+
+class Activity implements Serializable
 {
     private int $id;
     private string $name;
     private string $key;
     private string $jsKey;
     private ActivityParameterCollection $parameter;
+    private ?DateTime $date = null;
+
+    /**
+     * @return ActivityParameterCollection
+     */
+    public function getParameter(): ActivityParameterCollection
+    {
+        return $this->parameter;
+    }
+
+    /**
+     * @param DateTime|null $date
+     */
+    public function setDate(?DateTime $date): void
+    {
+        $this->date = $date;
+    }
+
+
+    public function serialize(): array
+    {
+        $r = [];
+        $r['key'] = $this->key;
+
+        if($this->date !== null){
+            $r['date'] = $this->date->format('Y-m-d H:i:s');
+        }
+
+        /** @var ActivityParameter $item */
+        foreach ($this->parameter as $item){
+            $r['parameter'][$item->getKey()] = (string) $item->getValue();
+        }
+
+        return $r;
+    }
 }

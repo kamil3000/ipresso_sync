@@ -12,6 +12,7 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use InvalidArgumentException;
+use Ipresso\Domain\Activity;
 use Ipresso\Domain\Contact;
 use Ipresso\Hydrator\ContactHydrator;
 use stdClass;
@@ -35,16 +36,46 @@ class ContactRepository implements ContactRepositoryInterface
         $this->hydrator = $hydrator;
     }
 
+    public function getAcivity(Contact $contact){
+        $url = 'api/2/contact/'.$contact->getIdContact().'/activity';
+
+        $response = $this->client->get($url);
+
+        $body = json_decode((string)$response->getBody());
+
+        dd($body);
+
+
+    }
+
+    public function addAcivity(Contact $contact, Activity $activity)
+    {
+
+        $body = [];
+
+        $body['activity'][] = $activity->serialize();
+
+        $url = 'api/2/contact/'.$contact->getIdContact().'/activity';
+
+        /** @var  $response Response */
+        $response = $this->client->post($url, array(
+            'form_params' => $body,
+        ));
+
+        dd($response);
+
+    }
+
 
     public function add(Contact $contact): Contact
     {
         $body['contact'] = array();
 
         $body['contact'][] = $this->hydrator->extract($contact);
- 
+
         /** @var  $response Response */
         $response = $this->client->post('api/2/contact', array(
-            'form_params' => $body
+            'form_params' => $body,
         ));
 
 
@@ -55,19 +86,19 @@ class ContactRepository implements ContactRepositoryInterface
         if ($response->getStatusCode() == 200) {
             $body = json_decode((string)$response->getBody());
 
-            if (!($body instanceof stdClass)) {
+            if ( ! ($body instanceof stdClass)) {
                 throw new Exception('bład parsowania odpowiedzi');
             }
 
-            if (!isset($body->data->contact)) {
+            if ( ! isset($body->data->contact)) {
                 throw new Exception('brak pola contact w odpowiedzi');
             }
 
             foreach ($body->data->contact as $item) {
 
-                if (!isset($item->id)) {
+                if ( ! isset($item->id)) {
 
-                    throw new Exception('peyload not recognized ' . json_encode($item));
+                    throw new Exception('peyload not recognized '.json_encode($item));
                 }
 
                 $contact->setIdContact($item->id);
@@ -92,8 +123,8 @@ class ContactRepository implements ContactRepositoryInterface
 
 
         /** @var  $response Response */
-        $response = $this->client->put('api/2/contact/' . $contact->getIdContact(), array(
-            'form_params' => $body
+        $response = $this->client->put('api/2/contact/'.$contact->getIdContact(), array(
+            'form_params' => $body,
         ));
         if ($response->getStatusCode() == 201) {
             return $contact;
@@ -104,20 +135,21 @@ class ContactRepository implements ContactRepositoryInterface
     public function getById($id)
     {
         /** @var  $response Response */
-        $response = $this->client->get('api/2/contact/' . $id);
+        $response = $this->client->get('api/2/contact/'.$id);
 
         $body = json_decode((string)$response->getBody());
         if ($response->getStatusCode() == 200) {
-            if (!($body instanceof stdClass)) {
+            if ( ! ($body instanceof stdClass)) {
                 throw new Exception('bład parsowania odpowiedzi');
             }
-            if (!isset($body->data->contact)) {
+            if ( ! isset($body->data->contact)) {
                 throw new Exception('brak pola contact w odpowiedzi');
             }
 
 
             return $this->hydrator->hydrate((array)$body->data->contact);
         }
+
         return null;
     }
 }

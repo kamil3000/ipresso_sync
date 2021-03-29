@@ -27,6 +27,25 @@ class ActivityRepository
         $this->hydrator = $hydrator;
     }
 
+    public function getByKey(string $key): ?Activity
+    {
+        /** @var  $response Response */
+        $response = $this->client->get('api/2/activity');
+
+        $body = json_decode((string)$response->getBody(), true);
+
+        if ($response->getStatusCode() == 200) {
+            $body = json_decode((string)$response->getBody(), true);
+            dump($body);
+            foreach ($body['data']['activity'] as $id => $data) {
+                if ($data['key'] === $key) {
+                    return $this->hydrator->factory($data, Activity::class);
+                }
+            }
+        }
+
+        return null;
+    }
 
     public function getAll(): array
     {
@@ -37,20 +56,17 @@ class ActivityRepository
         $out = [];
 
         if ($response->getStatusCode() == 200) {
-            $body = json_decode((string)$response->getBody(),true);
-
+            $body = json_decode((string)$response->getBody(), true);
             foreach ($body['data']['activity'] as $id => $data) {
                 $out[] = $this->hydrator->factory($data, Activity::class);
             }
         }
 
-        dd($out);
+//        dd($out);
 
         return $out;
 
     }
-
-
 
 
 }
