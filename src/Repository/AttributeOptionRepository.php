@@ -30,6 +30,19 @@ class AttributeOptionRepository implements AttributeOptionRepositoryInterface
         $this->apiAttribute = $apiAttribute->getAttribute();
     }
 
+    public function getByName($attr, $key ): ContactAttributeArrayOption
+    {
+
+        foreach ($this->apiAttribute->{$attr}->options as $k => $v) {
+            if ($v == $key) {
+
+                return $this->getById($attr,$k);
+            }
+        }
+
+        throw new NotFoundException('nie znaleziono atrybutu');
+    }
+
     public function getByKey($attr, $key ): ContactAttributeArrayOption
     {
 

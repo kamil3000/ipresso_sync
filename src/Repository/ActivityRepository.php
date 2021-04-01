@@ -36,7 +36,6 @@ class ActivityRepository
 
         if ($response->getStatusCode() == 200) {
             $body = json_decode((string)$response->getBody(), true);
-           // dump($body);
             foreach ($body['data']['activity'] as $id => $data) {
                 if ($data['key'] === $key) {
                     return $this->hydrator->factory($data, Activity::class);
@@ -61,6 +60,8 @@ class ActivityRepository
                 $out[] = $this->hydrator->factory($data, Activity::class);
             }
         }
+
+//        dd($out);
 
         return $out;
 

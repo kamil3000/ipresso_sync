@@ -68,9 +68,7 @@ class ContactHydrator
     public function extract(Contact $contact): array
     {
         $row = array();
-        if (!($contact instanceof Contact)) {
-            throw new InvalidArgumentException('jako argument wmagany obiekt klasy Ipresso\Domain\Contact ');
-        }
+
 
         if ($contact->getContactType() !== null) {
             $row['type'] = $contact->getContactType()->getKey();
@@ -168,6 +166,8 @@ class ContactHydrator
                     $contact->getContactAttributeCollection()->add(new ContactAttributeString($key, $datum));
                     continue;
                 }
+
+//                dd($key, $datum);
 
 
             }
