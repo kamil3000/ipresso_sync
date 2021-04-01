@@ -17,7 +17,7 @@ class ContactAttributeSelect implements ContactAttributeInterface
      * @param string $key
      * @param string $value
      */
-    public function __construct(string $key, ContactAttributeInterface $value)
+    public function __construct(string $key, ContactAttributeArrayOption $value)
     {
         $this->key = $key;
         $this->value = $value;
@@ -31,10 +31,8 @@ class ContactAttributeSelect implements ContactAttributeInterface
         return $this->key;
     }
 
-    /**
-     * @return ContactAttributeArrayOption
-     */
-    public function getValue(): ContactAttributeArrayOption
+
+    public function getValue()
     {
         return $this->value->getKey();
     }
