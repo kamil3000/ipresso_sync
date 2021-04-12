@@ -139,7 +139,7 @@ class ContactRepository implements ContactRepositoryInterface
         $response = $this->client->get('api/2/contact/' . $id);
 
         $body = json_decode((string)$response->getBody());
-        dd($body);
+
         if ($response->getStatusCode() == 200) {
             if (!($body instanceof stdClass)) {
                 throw new Exception('bład parsowania odpowiedzi');
