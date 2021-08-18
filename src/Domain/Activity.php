@@ -37,13 +37,18 @@ class Activity implements Serializable
         $r = [];
         $r['key'] = $this->key;
 
-        if($this->date !== null){
+        if ($this->date !== null) {
             $r['date'] = $this->date->format('Y-m-d H:i:s');
         }
 
         /** @var ActivityParameter $item */
-        foreach ($this->parameter as $item){
-            $r['parameter'][$item->getKey()] = (string) $item->getValue();
+        foreach ($this->parameter as $item) {
+            if ($item->getValue() instanceof DateTime) {
+                $r['parameter'][$item->getKey()] = $item->getValue()->format('Y-m-d H:i');
+                continue;
+            }
+
+            $r['parameter'][$item->getKey()] = (string)$item->getValue();
         }
 
         return $r;
