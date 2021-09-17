@@ -43,6 +43,12 @@ class Activity implements Serializable
 
         /** @var ActivityParameter $item */
         foreach ($this->parameter as $item) {
+
+            if($item->getType() === ActivityParameter::MULTI){
+                $r['parameter'][$item->getKey()] = $item->getValue();
+                continue;
+            }
+
             if ($item->getValue() instanceof DateTime) {
                 $r['parameter'][$item->getKey()] = $item->getValue()->format('Y-m-d H:i');
                 continue;

@@ -8,13 +8,12 @@ use function DI\string;
 
 class ActivityParameter
 {
-    private const DICTIONARY = 'dictionary';
-    private const MULTI = 'multi';
-    private const STRING = 'string';
-    private const BOOL = 'bool';
-    private const INTEGER = 'integer';
-    private const DATETIME = 'datetime';
-
+    public const DICTIONARY = 'dictionary';
+    public const MULTI = 'multi';
+    public const STRING = 'string';
+    public const BOOL = 'bool';
+    public const INTEGER = 'integer';
+    public const DATETIME = 'datetime';
 
     private string $name;
     private string $type;
@@ -57,7 +56,7 @@ class ActivityParameter
                 }
                 throw  new Exception\ActivityParameterException('wrong value of the attribute: ' . $this->name . ' expected string');
                 break;
-            case (self::DICTIONARY || self::MULTI):
+            case self::DICTIONARY:
                 /** @var Dictionary $item */
 
                 $found = false;
@@ -73,10 +72,31 @@ class ActivityParameter
                 }
                 throw  new Exception\ActivityParameterException('wrong value of the attribute: ' . $this->key . ' exprcted: (' . implode(',', $this->dictionary->__toArray()) . ')  given:' . gettype($value) . ' - ' . (string)$value);
                 break;
+            case  self::MULTI:
+                /** @var Dictionary $item */
+                $found = false;
+
+                if (!is_array($this->value)) {
+                    $this->value = [];
+                }
+
+                foreach ($this->dictionary as $item) {
+                    if ($item->getValue() === $value) {
+                        $this->value[] = $value;
+                        $found = true;
+                    }
+                }
+
+                if ($found) {
+                    break;
+                }
+                throw  new Exception\ActivityParameterException('wrong value of the attribute: ' . $this->key . ' exprcted: (' . implode(',', $this->dictionary->__toArray()) . ')  given:' . gettype($value) . ' - ' . (string)$value);
+                break;
+            default:
+                $this->value = $value;
+                break;
         }
 
-
-        $this->value = $value;
     }
 
     /**
@@ -94,5 +114,14 @@ class ActivityParameter
     {
         return $this->key;
     }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
 
 }
