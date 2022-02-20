@@ -11,6 +11,9 @@ namespace Ipresso;
 
 use Exception;
 use Ipresso\Domain\Contact;
+use Ipresso\Domain\ContactAttributeArray;
+use Ipresso\Domain\ContactAttributeArrayOption;
+use Ipresso\Domain\ContactAttributeInterface;
 use Ipresso\Domain\Tag;
 use Ipresso\Hydrator\ContactHydrator;
 use Ipresso\Repository\AlreadyExistsException;
@@ -33,8 +36,10 @@ class Sync
     {
         $this->container = Container::get();
     }
-    public function addTag(Tag $tag){
 
+
+    public function addTag(Tag $tag)
+    {
 
     }
 
@@ -43,17 +48,18 @@ class Sync
         $this->container->get(ContactValidator::class)->validate($contact);
         $this->container->get(ApiAttributeValidator::class)->validate($contact);
 
-        try {
-            $this->container->get(ContactRepositoryInterface::class)->add($contact);
-        } catch (AlreadyExistsException $exception) {
 
+        $ids = $this->container->get(ContactRepositoryInterface::class)->findByEmail($contact->getContactAttributeCollection()->getByKey('email')->getValue());
+
+        if ($ids === []) {
+            $this->container->get(ContactRepositoryInterface::class)->add($contact);
+        } else {
+            $id = end($ids);
 
             /** @var  $contactToUpdate Contact */
-            $contactToUpdate = $this->container->get(ContactRepositoryInterface::class)->getById($exception->getMessage());
-
+            $contactToUpdate = $this->container->get(ContactRepositoryInterface::class)->getById($id);
 
             foreach ($contact->getCategory() as $category) {
-
                 if (!$contactToUpdate->getCategory()->has($category)) {
                     $contactToUpdate->getCategory()->add($category);
                 }
@@ -65,9 +71,44 @@ class Sync
                 }
             }
 
+
+            /** @var ContactAttributeInterface $attribute */
+            foreach ($contact->getContactAttributeCollection() as $attribute) {
+                if ($attribute->getKey() === 'fname') {
+                    $contactToUpdate->getContactAttributeCollection()->add($contact->getContactAttributeCollection()->getByKey('fname'));
+                }
+                if ($attribute->getKey() === 'lname') {
+                    $contactToUpdate->getContactAttributeCollection()->add($contact->getContactAttributeCollection()->getByKey('lname'));
+                }
+                if ($attribute->getKey() === 'mobile') {
+                    $contactToUpdate->getContactAttributeCollection()->add($contact->getContactAttributeCollection()->getByKey('mobile'));
+                }
+                if ($attribute->getKey() === 'FormContent') {
+                    $contactToUpdate->getContactAttributeCollection()->add($contact->getContactAttributeCollection()->getByKey('FormContent'));
+                }
+
+                if ($attribute->getKey() === 'DiseaseUnit') {
+
+                    /** @var ContactAttributeArray $contactToUpdateDiseaseUnits */
+                    $contactToUpdateDiseaseUnits = $contactToUpdate->getContactAttributeCollection()->getByKey('DiseaseUnit');
+
+                    /** @var ContactAttributeArrayOption $option */
+                    /** @var ContactAttributeArray $attribute */
+                    foreach ($attribute->getValue() as $option) {
+
+                        if(!$contactToUpdateDiseaseUnits->hasItem($option)){
+                            $contactToUpdateDiseaseUnits->addItem($option);
+                        }
+                    }
+                }
+            }
+
             $this->container->get(ContactRepositoryInterface::class)->update($contactToUpdate);
 
+            return $contactToUpdate;
+
         }
+
 
         return $contact;
     }

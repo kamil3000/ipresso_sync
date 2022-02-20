@@ -19,4 +19,6 @@ interface ContactRepositoryInterface
 
     public function getById( $id );
 
+    public function findByEmail(string $email): array ;
+
 }

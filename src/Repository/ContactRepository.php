@@ -10,6 +10,7 @@ namespace Ipresso\Repository;
 
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Response;
 use InvalidArgumentException;
 use Ipresso\Domain\Activity;
@@ -87,6 +88,7 @@ class ContactRepository implements ContactRepositoryInterface
         if ($response->getStatusCode() == 200) {
             $body = json_decode((string)$response->getBody());
 
+
             if (!($body instanceof stdClass)) {
                 throw new Exception('bład parsowania odpowiedzi');
             }
@@ -99,7 +101,7 @@ class ContactRepository implements ContactRepositoryInterface
 
                 if (!isset($item->id)) {
 
-                    throw new Exception('peyload not recognized ' . json_encode($item));
+                    throw new Exception('payload not recognized ' . json_encode($body));
                 }
 
                 $contact->setIdContact($item->id);
@@ -122,6 +124,7 @@ class ContactRepository implements ContactRepositoryInterface
 
         $body['contact'] = $this->hydrator->extract($contact);
 
+        unset($body['contact']['email']);
 
         /** @var  $response Response */
         $response = $this->client->put('api/2/contact/' . $contact->getIdContact(), array(
@@ -133,8 +136,44 @@ class ContactRepository implements ContactRepositoryInterface
         throw new Exception('nie można updatować zasobu');
     }
 
+    public function findByEmail($email): array
+    {
+
+        $body['contact']['email'] = $email;
+
+        try {
+
+            /** @var  $response Response */
+            $response = $this->client->post('api/2/contact/search', array(
+                'form_params' => $body,
+            ));
+
+
+            if ($response->getStatusCode() == 200) {
+
+                $responseBody = json_decode((string)$response->getBody());
+
+                if (isset($responseBody->data->contact)) {
+                    return $responseBody->data->contact;
+                } else {
+                    return [];
+                }
+            }
+        }catch (ClientException $exception){
+            if($exception->getCode() === 404){
+                return [];
+            }
+
+        }
+
+        throw new Exception('problem z api' . $response->getStatusCode().' '.(string)$response->getBody());
+
+    }
+
     public function getById($id)
     {
+
+
         /** @var  $response Response */
         $response = $this->client->get('api/2/contact/' . $id);
 

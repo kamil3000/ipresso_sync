@@ -6,11 +6,11 @@ namespace Ipresso\Domain;
 
 class ContactAttributeArray implements ContactAttributeInterface
 {
-    /** @var string  */
+    /** @var string */
     private $key;
 
     /** @var ContactAttributeArrayOption[] */
-    private  $value;
+    private $value;
 
     /**
      * ContactAttribute constructor.
@@ -39,13 +39,21 @@ class ContactAttributeArray implements ContactAttributeInterface
         return $this->value;
     }
 
-    public function addItem(ContactAttributeArrayOption $option)
+    public function addItem(ContactAttributeArrayOption $option): self
     {
-
         $this->value[] = $option;
-
         return $this;
+    }
 
+    public function hasItem(ContactAttributeArrayOption $option): bool
+    {
+        /** @var ContactAttributeArrayOption $item */
+        foreach ($this->value as $item) {
+            if ($item->getId() === $option->getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
