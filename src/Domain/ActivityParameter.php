@@ -123,5 +123,23 @@ class ActivityParameter
         return $this->type;
     }
 
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return DictionaryCollection|null
+     */
+    public function getDictionary(): ?DictionaryCollection
+    {
+        return $this->dictionary;
+    }
+
+
+
 
 }
