@@ -34,28 +34,28 @@ class ActivityParameter
                     break;
                 }
                 throw  new Exception\ActivityParameterException('wrong value of the attribute: ' . $this->name . ' expected datetime');
-                break;
+
             case self::INTEGER:
-                if (is_integer($value)) {
+                if (is_int($value)) {
                     $this->value = $value;
                     break;
                 }
                 throw  new Exception\ActivityParameterException('wrong value of the attribute: ' . $this->name . ' expected intiger');
-                break;
+
             case self::BOOL:
                 if (is_bool($value)) {
                     $this->value = $value;
                     break;
                 }
                 throw  new Exception\ActivityParameterException('wrong value of the attribute: ' . $this->name . ' expected bool');
-                break;
+
             case self::STRING:
                 if (is_string($value)) {
                     $this->value = $value;
                     break;
                 }
                 throw  new Exception\ActivityParameterException('wrong value of the attribute: ' . $this->name . ' expected string');
-                break;
+
             case self::DICTIONARY:
                 /** @var Dictionary $item */
 
@@ -71,7 +71,7 @@ class ActivityParameter
                     break;
                 }
                 throw  new Exception\ActivityParameterException('wrong value of the attribute: ' . $this->key . ' exprcted: (' . implode(',', $this->dictionary->__toArray()) . ')  given:' . gettype($value) . ' - ' . (string)$value);
-                break;
+
             case  self::MULTI:
                 /** @var Dictionary $item */
                 $found = false;
@@ -80,9 +80,13 @@ class ActivityParameter
                     $this->value = [];
                 }
 
+                if(!is_array($value)){
+                    $value = [$value];
+                }
+
                 foreach ($this->dictionary as $item) {
-                    if ($item->getValue() === $value) {
-                        $this->value[] = $value;
+                    if (in_array($item->getValue(),$value)) {
+                        $this->value[] = $item->getValue();
                         $found = true;
                     }
                 }
@@ -91,7 +95,7 @@ class ActivityParameter
                     break;
                 }
                 throw  new Exception\ActivityParameterException('wrong value of the attribute: ' . $this->key . ' exprcted: (' . implode(',', $this->dictionary->__toArray()) . ')  given:' . gettype($value) . ' - ' . (string)$value);
-                break;
+
             default:
                 $this->value = $value;
                 break;
