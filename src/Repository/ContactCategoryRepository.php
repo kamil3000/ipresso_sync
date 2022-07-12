@@ -43,6 +43,7 @@ class ContactCategoryRepository implements ContactCategoryRepositoryInterface
 
         if ($response->getStatusCode() == 200) {
             $body = json_decode((string)$response->getBody());
+//            dd($body);
             if (!($body instanceof stdClass)) {
                 throw new Exception('bład parsowania odpowiedzi');
             }

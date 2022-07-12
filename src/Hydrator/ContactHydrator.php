@@ -26,19 +26,19 @@ use Ipresso\Repository\ContactTypeRepositoryInterface;
 class ContactHydrator
 {
 
-    /** @var AgreementRepositoryInterface  */
+    /** @var AgreementRepositoryInterface */
     private $agreementRepository;
 
-    /** @var ContactCategoryRepositoryInterface  */
+    /** @var ContactCategoryRepositoryInterface */
     private $contactCategoryRepository;
 
-    /** @var ContactTypeRepositoryInterface  */
+    /** @var ContactTypeRepositoryInterface */
     private $contactTypeRepositoryInterface;
 
-    /** @var AttributeOptionRepository  */
+    /** @var AttributeOptionRepository */
     private $attributeOptionRepository;
 
-    /** @var ApiAttribute  */
+    /** @var ApiAttribute */
     private $apiAttribute;
 
     /**
@@ -49,8 +49,13 @@ class ContactHydrator
      * @param AttributeOptionRepository $attributeOptionRepository
      * @param ApiAttribute $apiAttribute
      */
-    public function __construct(AgreementRepositoryInterface $agreementRepository, ContactCategoryRepositoryInterface $contactCategoryRepository, ContactTypeRepositoryInterface $contactTypeRepositoryInterface, AttributeOptionRepository $attributeOptionRepository, ApiAttribute $apiAttribute)
-    {
+    public function __construct(
+        AgreementRepositoryInterface $agreementRepository,
+        ContactCategoryRepositoryInterface $contactCategoryRepository,
+        ContactTypeRepositoryInterface $contactTypeRepositoryInterface,
+        AttributeOptionRepository $attributeOptionRepository,
+        ApiAttribute $apiAttribute
+    ) {
         $this->agreementRepository = $agreementRepository;
         $this->contactCategoryRepository = $contactCategoryRepository;
         $this->contactTypeRepositoryInterface = $contactTypeRepositoryInterface;
@@ -92,7 +97,6 @@ class ContactHydrator
         if (count($contact->getContactAttributeCollection()) > 0) {
             /** @var ContactAttributeInterface $item */
             foreach ($contact->getContactAttributeCollection() as $item) {
-
                 if ($item instanceof ContactAttributeArray) {
                     $row[$item->getKey()] = [];
                     foreach ($item->getValue() as $attributeArrayOption) {
@@ -102,6 +106,25 @@ class ContactHydrator
                 }
 
                 $row[$item->getKey()] = $item->getValue();
+            }
+        }
+        if ($contact->getSource()->hasValue()) {
+            $row['source'] = [];
+            if ($contact->getSource()->getUtmCampaign() !== null) {
+                $row['source']['utm_campaign'] = $contact->getSource()->getUtmCampaign();
+            }
+
+            if ($contact->getSource()->getUtmContent() !== null) {
+                $row['source']['utm_content'] = $contact->getSource()->getUtmContent();
+            }
+            if ($contact->getSource()->getUtmMedium() !== null) {
+                $row['source']['utm_medium'] = $contact->getSource()->getUtmMedium();
+            }
+            if ($contact->getSource()->getUtmSource() !== null) {
+                $row['source']['utm_source'] = $contact->getSource()->getUtmSource();
+            }
+            if ($contact->getSource()->getUtmTerm() !== null) {
+                $row['source']['utm_term'] = $contact->getSource()->getUtmTerm();
             }
         }
 
@@ -126,7 +149,6 @@ class ContactHydrator
         $a = $this->apiAttribute->getAttribute();
 //        dd($data, $a);
         foreach ($data as $key => $datum) {
-
             if ($key === 'agreement') {
                 foreach ($datum as $id => $name) {
                     $contact->getAgreement()->add($this->agreementRepository->getById($id));
@@ -142,12 +164,10 @@ class ContactHydrator
             }
 
             if ($key === 'type') {
-
-                 $contact->setContactType($this->contactTypeRepositoryInterface->getByKey($datum));
+                $contact->setContactType($this->contactTypeRepositoryInterface->getByKey($datum));
             }
 
             if ((is_array($datum) || is_object($datum)) && $this->apiAttribute->attributeIsset($key)) {
-
                 $attributeArray = new ContactAttributeArray($key, []);
                 foreach ($datum as $attrId => $name) {
                     $attributeArray->addItem($this->attributeOptionRepository->getById($key, (int)$attrId));
@@ -166,7 +186,6 @@ class ContactHydrator
                     $contact->getContactAttributeCollection()->add(new ContactAttributeString($key, $datum));
                     continue;
                 }
-
 //                dd($key, $datum);
 
 
@@ -174,6 +193,5 @@ class ContactHydrator
         }
 
         return $contact;
-
     }
 }

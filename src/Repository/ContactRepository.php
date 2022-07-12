@@ -40,19 +40,13 @@ class ContactRepository implements ContactRepositoryInterface
     public function getAcivity(Contact $contact)
     {
         $url = 'api/2/contact/' . $contact->getIdContact() . '/activity';
-
         $response = $this->client->get($url);
-
         $body = json_decode((string)$response->getBody());
-
-        dd($body);
-
-
+        //     dd($body);
     }
 
     public function addAcivity(Contact $contact, Activity $activity)
     {
-
         $body = [];
 
         $body['activity'][] = $activity->serialize();
@@ -65,7 +59,6 @@ class ContactRepository implements ContactRepositoryInterface
         ));
 
         return json_decode((string)$response->getBody());
-
     }
 
 
@@ -98,9 +91,7 @@ class ContactRepository implements ContactRepositoryInterface
             }
 
             foreach ($body->data->contact as $item) {
-
                 if (!isset($item->id)) {
-
                     throw new Exception('payload not recognized ' . json_encode($body));
                 }
 
@@ -111,9 +102,7 @@ class ContactRepository implements ContactRepositoryInterface
             }
 
             return $contact;
-
         }
-
     }
 
     public function update(Contact $contact): Contact
@@ -138,11 +127,9 @@ class ContactRepository implements ContactRepositoryInterface
 
     public function findByEmail($email): array
     {
-
         $body['contact']['email'] = $email;
 
         try {
-
             /** @var  $response Response */
             $response = $this->client->post('api/2/contact/search', array(
                 'form_params' => $body,
@@ -150,7 +137,6 @@ class ContactRepository implements ContactRepositoryInterface
 
 
             if ($response->getStatusCode() == 200) {
-
                 $responseBody = json_decode((string)$response->getBody());
 
                 if (isset($responseBody->data->contact)) {
@@ -159,21 +145,17 @@ class ContactRepository implements ContactRepositoryInterface
                     return [];
                 }
             }
-        }catch (ClientException $exception){
-            if($exception->getCode() === 404){
+        } catch (ClientException $exception) {
+            if ($exception->getCode() === 404) {
                 return [];
             }
-
         }
 
-        throw new Exception('problem z api' . $response->getStatusCode().' '.(string)$response->getBody());
-
+        throw new Exception('problem z api' . $response->getStatusCode() . ' ' . (string)$response->getBody());
     }
 
     public function getById($id)
     {
-
-
         /** @var  $response Response */
         $response = $this->client->get('api/2/contact/' . $id);
 

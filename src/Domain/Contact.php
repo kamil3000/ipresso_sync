@@ -26,26 +26,35 @@ class Contact
     /** @var ContactType|null  */
     private  $contactType = null;
 
+    /** @var ContactSource */
+    private $source;
+
 
     public function __construct($idContact = null)
     {
         $this->contactAttributeCollection = new ContactAttributeCollection;
         $this->category = new ContactCategoryCollection;
         $this->agreement = new AgreementCollection;
+        $this->source = new ContactSource;
         $this->idContact = $idContact;
     }
 
-    /**
-     * @return ContactType
-     */
+    public function getSource(): ContactSource
+    {
+        return $this->source;
+    }
+
+    public function setSource(ContactSource $source): Contact
+    {
+        $this->source = $source;
+        return $this;
+    }
+
     public function getContactType(): ?ContactType
     {
         return $this->contactType;
     }
 
-    /**
-     * @param ContactType $contactType
-     */
     public function setContactType(ContactType $contactType): void
     {
         $this->contactType = $contactType;
