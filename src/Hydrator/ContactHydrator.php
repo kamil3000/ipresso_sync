@@ -90,7 +90,7 @@ class ContactHydrator
         if ($contact->getAgreement() !== null) {
             /** @var  $category Agreement */
             foreach ($contact->getAgreement() as $agreement) {
-                $row['agreement'][$agreement->getId()] = 1;
+                $row['agreement'][$agreement->getId()] = $agreement->isToRemove() ? 2 : 1 ;
             }
         }
 
@@ -146,8 +146,6 @@ class ContactHydrator
 
         $contact = new Contact($data['idContact']);
 
-        $a = $this->apiAttribute->getAttribute();
-//        dd($data, $a);
         foreach ($data as $key => $datum) {
             if ($key === 'agreement') {
                 foreach ($datum as $id => $name) {
