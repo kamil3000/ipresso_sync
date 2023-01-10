@@ -16,6 +16,15 @@ class ContactAttributeCollection implements Iterator, Countable
     /** @var ContactAttributeInterface[] */
     private $var = array();
 
+    public function remove(string $key):self{
+        foreach ($this->var as $storageKey => $item) {
+            if ($item->getKey() === $key) {
+                unset($this->var[$storageKey]);
+            }
+        }
+        return $this;
+    }
+
     public function has(ContactAttributeInterface $contactAttribute): bool
     {
         foreach ($this->var as $item) {
