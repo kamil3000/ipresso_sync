@@ -13,12 +13,14 @@ use Ipresso\Domain\Contact;
 interface ContactRepositoryInterface
 {
 
-    public function add( Contact $contact );
+    public function add(Contact $contact);
 
-    public function update( Contact $contact );
+    public function update(Contact $contact);
 
-    public function getById( $id );
+    public function getById($id);
 
-    public function findByEmail(string $email): array ;
+    public function findByEmail(string $email): array;
+
+    public function remove(int $id): bool;
 
 }

@@ -26,15 +26,23 @@ class ContactRepository implements ContactRepositoryInterface
     /** @var ContactHydrator */
     private $hydrator;
 
-    /**
-     * ContactRepository constructor.
-     * @param Client $client
-     * @param ContactHydrator $hydrator
-     */
+
     public function __construct(Client $client, ContactHydrator $hydrator)
     {
         $this->client = $client;
         $this->hydrator = $hydrator;
+    }
+
+    public function remove(int $id): bool
+    {
+        try {
+            /** @var  $response Response */
+            $response = $this->client->delete('api/2/contact/' . $id);
+            return $response->getStatusCode() == 200;
+        } catch (\Exception $exception) {
+            return false;
+        }
+
     }
 
     public function getAcivity(Contact $contact)
@@ -42,7 +50,7 @@ class ContactRepository implements ContactRepositoryInterface
         $url = 'api/2/contact/' . $contact->getIdContact() . '/activity';
         $response = $this->client->get($url);
         $body = json_decode((string)$response->getBody());
-        //     dd($body);
+        return $body;
     }
 
     public function addAcivity(Contact $contact, Activity $activity)
