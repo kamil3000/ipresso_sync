@@ -18,9 +18,9 @@ use Ipresso\Domain\Contact;
 use Ipresso\Hydrator\ContactHydrator;
 use stdClass;
 
-class ContactRepository implements ContactRepositoryInterface
+readonly class ContactRepository implements ContactRepositoryInterface
 {
-    public function __construct(private readonly Client $client, private readonly ContactHydrator $hydrator)
+    public function __construct(private Client $client, private ContactHydrator $hydrator)
     {
     }
 
@@ -99,9 +99,8 @@ class ContactRepository implements ContactRepositoryInterface
                     throw new AlreadyExistsException($contact->getIdContact());
                 }
             }
-
-            return $contact;
         }
+        return $contact;
     }
 
     public function update(Contact $contact): Contact
@@ -138,11 +137,7 @@ class ContactRepository implements ContactRepositoryInterface
             if ($response->getStatusCode() == 200) {
                 $responseBody = json_decode((string)$response->getBody());
 
-                if (isset($responseBody->data->contact)) {
-                    return $responseBody->data->contact;
-                } else {
-                    return [];
-                }
+                return $responseBody->data->contact ?? [];
             }
         } catch (ClientException $exception) {
             if ($exception->getCode() === 404) {
