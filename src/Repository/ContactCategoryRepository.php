@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kkaczy
- * Date: 16.08.2018
- * Time: 10:40
- */
 
 namespace Ipresso\Repository;
 
@@ -17,16 +11,12 @@ use stdClass;
 
 class ContactCategoryRepository implements ContactCategoryRepositoryInterface
 {
-
-
-
     private $var;
 
-    public function __construct(private readonly Client $client,private readonly AttributeHydrator $hydrator)
+    public function __construct(private readonly Client $client, private readonly AttributeHydrator $hydrator)
     {
         /** @var  $response Response */
         $response = $this->client->get('api/2/category');
-
 
         if ($response->getStatusCode() == 200) {
             $body = json_decode((string)$response->getBody());
@@ -36,12 +26,9 @@ class ContactCategoryRepository implements ContactCategoryRepositoryInterface
             if (!isset($body->data->category)) {
                 throw new Exception('brak pola category w odpowiedzi');
             }
-
             $this->var = $body->data->category;
         }
-
     }
-
 
     public function getById(int $id): ContactCategory
     {
@@ -66,7 +53,6 @@ class ContactCategoryRepository implements ContactCategoryRepositoryInterface
                 ], new ContactCategory);
             }
         }
-        throw new NotFoundException('nie znaleziono atrybutu: ' . $id);
+        throw new NotFoundException('nie znaleziono atrybutu: ' . $key);
     }
-
 }
