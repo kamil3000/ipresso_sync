@@ -26,7 +26,6 @@ return [
     Repo\TagRepository::class => fn(Client $client, DomianObjectFactory $hydrator) => new Repo\TagRepository($client, $hydrator),
     Repo\ContactRepositoryInterface::class => fn(Client $client, ContactHydrator $hydrator) => new Repo\ContactRepository($client, $hydrator),
     Repo\AttributeOptionRepositoryInterface::class => fn(Repo\ApiAttribute $apiAttribute, AttributeHydrator $hydrator) => new Repo\AttributeOptionRepository($apiAttribute, $hydrator),
-    Repo\RegistrationRepositoryInterface::class => fn(Repo\ApiAttribute $apiAttribute, AttributeHydrator $hydrator) => new Repo\RegistrationRepository($apiAttribute, $hydrator),
     Repo\AgreementRepositoryInterface::class => fn(Client $client, AttributeHydrator $hydrator) => new Repo\AgreementRepository($client, $hydrator),
     Repo\SourceOfAdditionRepositoryInterface::class => fn(Repo\ApiAttribute $apiAttribute, AttributeHydrator $hydrator) => new Repo\SourceOfAdditionRepository($apiAttribute, $hydrator),
     Repo\ContactTypeRepositoryInterface::class => fn(Client $client, AttributeHydrator $hydrator) => new Repo\ContactTypeRepository($client, $hydrator),
