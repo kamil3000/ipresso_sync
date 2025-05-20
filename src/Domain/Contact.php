@@ -20,9 +20,6 @@ class Contact
     /** @var AgreementCollection  */
     private  $agreement;
 
-    /** @var int|null  */
-    private  $idContact;
-
     /** @var ContactType|null  */
     private  $contactType = null;
 
@@ -30,13 +27,15 @@ class Contact
     private $source;
 
 
-    public function __construct($idContact = null)
+    /**
+     * @param int|null $idContact
+     */
+    public function __construct(private $idContact = null)
     {
         $this->contactAttributeCollection = new ContactAttributeCollection;
         $this->category = new ContactCategoryCollection;
         $this->agreement = new AgreementCollection;
         $this->source = new ContactSource;
-        $this->idContact = $idContact;
     }
 
     public function getSource(): ContactSource
@@ -60,10 +59,6 @@ class Contact
         $this->contactType = $contactType;
     }
 
-
-    /**
-     * @return ContactAttributeCollection
-     */
     public function getContactAttributeCollection(): ContactAttributeCollection
     {
         return $this->contactAttributeCollection;

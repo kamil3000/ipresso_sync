@@ -12,9 +12,6 @@ use Ipresso\Factory\DomianObjectFactory;
 
 class TagRepository
 {
-    /** @var Client */
-    private $client;
-
     /** @var AttributeHydrator */
     private $hydrator;
 
@@ -23,9 +20,8 @@ class TagRepository
      * @param Client $client
      * @param AttributeHydrator $hydrator
      */
-    public function __construct(Client $client, DomianObjectFactory $hydrator)
+    public function __construct(private readonly Client $client, DomianObjectFactory $hydrator)
     {
-        $this->client = $client;
         $this->hydrator = $hydrator;
     }
 
@@ -33,9 +29,9 @@ class TagRepository
         $body['contact'][] = $contact->getIdContact();
 
         /** @var  $response Response */
-        $response = $this->client->post('api/2/tag/'. $tag->getId() . '/contact', array(
+        $response = $this->client->post('api/2/tag/'. $tag->getId() . '/contact', [
             'form_params' => $body
-        ));
+        ]);
 
     }
 
@@ -46,11 +42,11 @@ class TagRepository
         }
         
         /** @var  $response Response */
-        $response = $this->client->post('api/2/tag', array(
+        $response = $this->client->post('api/2/tag', [
             'form_params' => [
                 'name' => $tag->getName()
             ]
-        ));
+        ]);
 
         if ($response->getStatusCode() === 201) {
             $rb = json_decode((string)$response->getBody());

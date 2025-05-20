@@ -7,17 +7,9 @@ use GuzzleHttp\Psr7\Response;
 
 class Correspondent
 {
-    private Client $client;
-
-    /**
-     * Correspondent constructor.
-     * @param Client $client
-     */
-    public function __construct(Client $client)
+    public function __construct(private readonly Client $client)
     {
-        $this->client = $client;
     }
-
 
     public function connactionContact(int $contactMaster, int $contactSlave)
     {
@@ -32,7 +24,5 @@ class Correspondent
         ]);
 
         return $response;
-
     }
-
 }

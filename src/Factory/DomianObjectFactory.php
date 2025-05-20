@@ -8,7 +8,6 @@ use ReflectionClass;
 
 class DomianObjectFactory
 {
-
     private $storage = [];
 
     public function factory(array $data, string $className)

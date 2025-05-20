@@ -13,7 +13,7 @@ use Iterator;
 
 class ContactCollection implements Iterator
 {
-    private $var = array();
+    private $var = [];
 
     public function has(Contact $contact): bool
     {
@@ -25,7 +25,7 @@ class ContactCollection implements Iterator
         return false;
     }
 
-    public function add( Contact $contact )
+    public function add(Contact $contact)
     {
         if (count($this->var) < 101) {
             $this->var[] = $contact;
@@ -52,10 +52,9 @@ class ContactCollection implements Iterator
         return $var;
     }
 
-    public function next()
+    public function next(): void
     {
-        $var = next($this->var);
-        return $var;
+        next($this->var);
     }
 
     public function valid()

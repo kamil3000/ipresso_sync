@@ -15,10 +15,10 @@ class ActivityParameter
     public const INTEGER = 'integer';
     public const DATETIME = 'datetime';
 
-    private string $name;
-    private string $type;
-    private string $key;
-    private ?DictionaryCollection $dictionary;
+    private readonly string $name;
+    private readonly string $type;
+    private readonly string $key;
+    private ?DictionaryCollection $dictionary = null;
 
     private $value;
 

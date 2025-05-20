@@ -4,6 +4,7 @@ namespace Ipresso\Validator;
 
 use Ipresso\Domain\Contact;
 use Ipresso\Domain\ContactAttribute;
+use Ipresso\Domain\ContactAttributeCollection;
 use Ipresso\Enum\ApiAttributeKey;
 
 class ContactValidator implements ValidatorInterface
@@ -14,7 +15,7 @@ class ContactValidator implements ValidatorInterface
 
         $oneShouldExist = [ApiAttributeKey::EMAIL, ApiAttributeKey::MOBILE, ApiAttributeKey::NAME, ApiAttributeKey::LAST_NAME];
 
-        /** @var ContactAttribute $item */
+        /** @var ContactAttributeCollection $item */
         foreach ($contact->getContactAttributeCollection() as $item) {
             if (!$pass && in_array($item->getKey(), $oneShouldExist)) {
                 $pass = true;

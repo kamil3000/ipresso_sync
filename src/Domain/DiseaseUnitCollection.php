@@ -13,7 +13,7 @@ use Iterator;
 
 class DiseaseUnitCollection implements Iterator
 {
-    private $var = array();
+    private $var = [];
 
     public function has(DiseaseUnit $diseaseUnit): bool
     {
@@ -52,7 +52,7 @@ class DiseaseUnitCollection implements Iterator
         return $var;
     }
 
-    public function next()
+    public function next(): void
     {
         $var = next($this->var);
         return $var;

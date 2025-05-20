@@ -8,11 +8,11 @@ use DateTime;
 
 class Activity implements Serializable
 {
-    private int $id;
-    private string $name;
-    private string $key;
-    private string $jsKey;
-    private ActivityParameterCollection $parameter;
+    private readonly int $id;
+    private readonly string $name;
+    private readonly string $key;
+    private readonly string $jsKey;
+    private readonly ActivityParameterCollection $parameter;
     private ?DateTime $date = null;
 
     /**

@@ -6,7 +6,7 @@ namespace Ipresso\Domain;
 
 class Dictionary
 {
-    private string $value;
+    private readonly string $value;
 
     /**
      * @return string

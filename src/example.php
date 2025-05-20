@@ -7,9 +7,9 @@ require_once __DIR__.'/../vendor/autoload.php';
 $container = Container::get();
 
 
-$c = $container->get(\Ipresso\Repository\ContactRepository::class)->getById(1359);
+$c = $container->get(\Ipresso\Repository\ContactRepository::class)->getById(32866);
 
-dd($container->get(\Ipresso\Repository\ContactRepository::class)->getAcivity($c));
+//dd($c,$container->get(\Ipresso\Repository\ContactRepository::class)->getAcivity($c));
 
 //$a = $container->get(\Ipresso\Repository\ActivityRepository::class)->getAll();
 $a = $container->get(\Ipresso\Repository\ActivityRepository::class)->getByKey('movie_contact');
@@ -48,7 +48,9 @@ if ($a instanceof \Ipresso\Domain\Activity) {
     throw new \Exception('activity not found');
 }
 
-//dump($a);
 
 
-//$container->get(\Ipresso\Repository\ContactRepository::class)->addAcivity($c, $a);
+$container->get(\Ipresso\Repository\ContactRepository::class)->addAcivity($c, $a);
+
+
+dump($a);

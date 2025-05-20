@@ -12,19 +12,13 @@ use Ipresso\Factory\DomianObjectFactory;
 class ActivityRepository
 {
 
-    private Client $client;
-
-    private DomianObjectFactory $hydrator;
-
     /**
      * ActivityRepository constructor.
      * @param Client $client
      * @param DomianObjectFactory $hydrator
      */
-    public function __construct(Client $client, DomianObjectFactory $hydrator)
+    public function __construct(private readonly Client $client, private readonly DomianObjectFactory $hydrator)
     {
-        $this->client = $client;
-        $this->hydrator = $hydrator;
     }
 
     public function getByKey(string $key): ?Activity
@@ -36,7 +30,7 @@ class ActivityRepository
 
         if ($response->getStatusCode() == 200) {
             $body = json_decode((string)$response->getBody(), true);
-            foreach ($body['data']['activity'] as $id => $data) {
+            foreach ($body['data']['activity'] as $data) {
                 if ($data['key'] === $key) {
                     return $this->hydrator->factory($data, Activity::class);
                 }
@@ -56,7 +50,7 @@ class ActivityRepository
 
         if ($response->getStatusCode() == 200) {
             $body = json_decode((string)$response->getBody(), true);
-            foreach ($body['data']['activity'] as $id => $data) {
+            foreach ($body['data']['activity'] as $data) {
                 $out[] = $this->hydrator->factory($data, Activity::class);
             }
         }

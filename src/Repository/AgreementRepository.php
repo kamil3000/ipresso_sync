@@ -17,25 +17,13 @@ use stdClass;
 
 class AgreementRepository implements AgreementRepositoryInterface
 {
-    /** @var Client */
-    private $client;
+    private $var;
 
-    /** @var ContactHydrator */
-    private $hydrator;
-
-
-    /**
-     * DiseaseUnitRepository constructor.
-     * @param ApiAttribute $apiAttribute
-     */
-    public function __construct(Client $client, AttributeHydrator $hydrator)
+    public function __construct(private readonly Client $client, private AttributeHydrator $hydrator)
     {
-        $this->client = $client;
-        $this->hydrator = $hydrator;
 
         /** @var  $response Response */
         $response = $this->client->get('api/2/agreement');
-
 
         if ($response->getStatusCode() == 200) {
             $body = json_decode((string)$response->getBody());
@@ -69,16 +57,16 @@ class AgreementRepository implements AgreementRepositoryInterface
                 return $this->factory($item);
             }
         }
-        throw new NotFoundException('nie znaleziono atrybutu: ' . $id);
+        throw new NotFoundException('nie znaleziono atrybutu: ' . $name);
     }
 
     private function factory($item): Agreement
     {
-        return $this->hydrator->hydrate(array(
+        return $this->hydrator->hydrate([
             'id' => $item->id,
             'descr' => $item->descr,
             'name' => $item->name,
             'cantDelete' => $item->cant_delete
-        ), new Agreement());
+        ], new Agreement());
     }
 }

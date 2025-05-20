@@ -17,9 +17,6 @@ use stdClass;
 
 class ContactCategoryRepository implements ContactCategoryRepositoryInterface
 {
-    /** @var Client */
-    private $client;
-
     /** @var ContactHydrator */
     private $hydrator;
 
@@ -32,9 +29,8 @@ class ContactCategoryRepository implements ContactCategoryRepositoryInterface
      * @param ContactHydrator $hydrator
      */
 
-    public function __construct(Client $client, AttributeHydrator $hydrator)
+    public function __construct(private readonly Client $client, AttributeHydrator $hydrator)
     {
-        $this->client = $client;
         $this->hydrator = $hydrator;
 
         /** @var  $response Response */
@@ -61,10 +57,10 @@ class ContactCategoryRepository implements ContactCategoryRepositoryInterface
     {
         foreach ($this->var as $k => $v) {
             if ($id == $k) {
-                return $this->hydrator->hydrate(array(
+                return $this->hydrator->hydrate([
                     'id' => $k,
                     'name' => $v
-                ), new ContactCategory);
+                ], new ContactCategory);
             }
         }
         throw new NotFoundException('nie znaleziono atrybutu: ' . $id);
@@ -74,10 +70,10 @@ class ContactCategoryRepository implements ContactCategoryRepositoryInterface
     {
         foreach ($this->var as $k => $v) {
             if ($key === $v) {
-                return $this->hydrator->hydrate(array(
+                return $this->hydrator->hydrate([
                     'id' => $k,
                     'name' => $v
-                ), new ContactCategory);
+                ], new ContactCategory);
             }
         }
         throw new NotFoundException('nie znaleziono atrybutu: ' . $id);

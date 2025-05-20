@@ -14,9 +14,6 @@ use GuzzleHttp\Psr7\Response;
 
 class ApiAttribute
 {
-    /** @var Client */
-    private $client;
-
     /**
      * ApiAttribute constructor.
      * @param Client $client
@@ -24,9 +21,8 @@ class ApiAttribute
 
     private $attribute;
 
-    public function __construct(Client $client)
+    public function __construct(private readonly Client $client)
     {
-        $this->client = $client;
         {
             /** @var  $response Response */
             $response = $this->client->get('api/2/attribute');

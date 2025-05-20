@@ -6,17 +6,14 @@ namespace Ipresso\Services;
 use Ipresso\Api\Correspondent;
 use Ipresso\Domain\Contact;
 
-class ConnactionContact
+readonly class ConnactionContact
 {
-    private Correspondent $correspondent;
-
     /**
      * ConnactionContact constructor.
      * @param Correspondent $correspondent
      */
-    public function __construct(Correspondent $correspondent)
+    public function __construct(private Correspondent $correspondent)
     {
-        $this->correspondent = $correspondent;
     }
 
 

@@ -23,56 +23,16 @@ use Ipresso\Repository\ContactCategoryRepositoryInterface;
 use Ipresso\Repository\ApiAttribute;
 use Ipresso\Repository\ContactTypeRepositoryInterface;
 
-class ContactHydrator
+readonly class ContactHydrator
 {
 
-    /** @var AgreementRepositoryInterface */
-    private $agreementRepository;
-
-    /** @var ContactCategoryRepositoryInterface */
-    private $contactCategoryRepository;
-
-    /** @var ContactTypeRepositoryInterface */
-    private $contactTypeRepositoryInterface;
-
-    /** @var AttributeOptionRepository */
-    private $attributeOptionRepository;
-
-    /** @var ApiAttribute */
-    private $apiAttribute;
-
-    /**
-     * ContactHydrator constructor.
-     * @param AgreementRepositoryInterface $agreementRepository
-     * @param ContactCategoryRepositoryInterface $contactCategoryRepository
-     * @param ContactTypeRepositoryInterface $contactTypeRepositoryInterface
-     * @param AttributeOptionRepository $attributeOptionRepository
-     * @param ApiAttribute $apiAttribute
-     */
-    public function __construct(
-        AgreementRepositoryInterface $agreementRepository,
-        ContactCategoryRepositoryInterface $contactCategoryRepository,
-        ContactTypeRepositoryInterface $contactTypeRepositoryInterface,
-        AttributeOptionRepository $attributeOptionRepository,
-        ApiAttribute $apiAttribute
-    ) {
-        $this->agreementRepository = $agreementRepository;
-        $this->contactCategoryRepository = $contactCategoryRepository;
-        $this->contactTypeRepositoryInterface = $contactTypeRepositoryInterface;
-        $this->attributeOptionRepository = $attributeOptionRepository;
-        $this->apiAttribute = $apiAttribute;
+    public function __construct(private AgreementRepositoryInterface $agreementRepository, private ContactCategoryRepositoryInterface $contactCategoryRepository, private ContactTypeRepositoryInterface $contactTypeRepositoryInterface, private AttributeOptionRepository $attributeOptionRepository, private ApiAttribute $apiAttribute)
+    {
     }
 
-
-    /**
-     * Extract values from an object
-     *
-     * @param object $object
-     * @return array
-     */
     public function extract(Contact $contact): array
     {
-        $row = array();
+        $row = [];
 
 
         if ($contact->getContactType() !== null) {
@@ -90,7 +50,7 @@ class ContactHydrator
         if ($contact->getAgreement() !== null) {
             /** @var  $category Agreement */
             foreach ($contact->getAgreement() as $agreement) {
-                $row['agreement'][$agreement->getId()] = $agreement->isToRemove() ? 2 : 1 ;
+                $row['agreement'][$agreement->getId()] = $agreement->isToRemove() ? 2 : 1;
             }
         }
 

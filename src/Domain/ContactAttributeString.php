@@ -6,21 +6,13 @@ namespace Ipresso\Domain;
 
 class ContactAttributeString implements ContactAttributeInterface
 {
-    /** @var string  */
-    private  $key;
-
-    /** @var string|null  */
-    private $value;
-
     /**
      * ContactAttribute constructor.
      * @param string $key
      * @param string $value
      */
-    public function __construct(string $key, ?string $value)
+    public function __construct(private readonly string $key, private readonly ?string $value)
     {
-        $this->key = $key;
-        $this->value = $value;
     }
 
     /**

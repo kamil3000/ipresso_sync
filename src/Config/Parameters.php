@@ -4,15 +4,8 @@ namespace Ipresso\Config;
 
 use Exception;
 
-/**
- * Created by PhpStorm.
- * User: kkaczy
- * Date: 10.08.2018
- * Time: 09:58
- */
 class Parameters
 {
-
     public static function getPass()
     {
         return self::getEnv('IPRESSO_PASS');
@@ -22,7 +15,6 @@ class Parameters
     {
         return self::getEnv('IPRESSO_LOGIN');
     }
-
 
     public static function getCostumerKey()
     {

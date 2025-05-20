@@ -14,80 +14,32 @@ use Ipresso\Services\ConnactionContact;
 use Ipresso\Factory\DomianObjectFactory;
 
 return [
-    DomianObjectFactory::class => function (){
-        return new DomianObjectFactory();
-    },
-    ConnactionContact::class => function (Correspondent $correspondent) {
-        return new ConnactionContact($correspondent);
-    },
-    Correspondent::class => function (Client $client) {
-        return new Correspondent($client);
-    },
-    ContactValidator::class => function () {
-        return new ContactValidator();
-    },
-    ApiAttributeValidator::class => function (Repo\ApiAttribute $apiAttribute) {
-        return new ApiAttributeValidator($apiAttribute);
-    },
-    Authentication::class => function (Token $token) {
-        return new Authentication($token);
-    },
-    AttributeHydrator::class => function () {
-        return new AttributeHydrator();
-    },
-    ContactHydrator::class => static function (
-        Repo\AgreementRepositoryInterface $agreementRepository,
-        Repo\ContactCategoryRepositoryInterface $contactCategoryRepository,
-        Repo\ContactTypeRepositoryInterface $contactTypeRepositoryInterface,
-        Repo\AttributeOptionRepository $attributeOptionRepository,
-        Repo\ApiAttribute $apiAttribute) {
-        return new ContactHydrator($agreementRepository, $contactCategoryRepository,$contactTypeRepositoryInterface, $attributeOptionRepository, $apiAttribute);
-    },
-    Repo\ActivityRepository::class => function (Client $client, DomianObjectFactory $hydrator) {
-        return new Repo\ActivityRepository($client,$hydrator);
-    },
-    Repo\TagRepository::class => function (Client $client, DomianObjectFactory $hydrator) {
-        return new Repo\TagRepository($client, $hydrator);
-    },
-    Repo\ContactRepositoryInterface::class => function (Client $client, ContactHydrator $hydrator) {
-        return new Repo\ContactRepository($client, $hydrator);
-    },
-    Repo\AttributeOptionRepositoryInterface::class => function (Repo\ApiAttribute $apiAttribute, AttributeHydrator $hydrator) {
-        return new Repo\AttributeOptionRepository($apiAttribute, $hydrator);
-    },
-    Repo\RegistrationRepositoryInterface::class => function (Repo\ApiAttribute $apiAttribute, AttributeHydrator $hydrator) {
-        return new Repo\RegistrationRepository($apiAttribute, $hydrator);
-    },
-    Repo\AgreementRepositoryInterface::class => function (Client $client, AttributeHydrator $hydrator) {
-        return new Repo\AgreementRepository($client, $hydrator);
-    },
-    Repo\SourceOfAdditionRepositoryInterface::class => function (Repo\ApiAttribute $apiAttribute, AttributeHydrator $hydrator) {
-        return new Repo\SourceOfAdditionRepository($apiAttribute, $hydrator);
-    },
-    Repo\ContactTypeRepositoryInterface::class => function (Client $client, AttributeHydrator $hydrator) {
-        return new Repo\ContactTypeRepository($client, $hydrator);
-    },
-    Repo\ContactCategoryRepositoryInterface::class => function (Client $client, AttributeHydrator $hydrator) {
-        return new Repo\ContactCategoryRepository($client, $hydrator);
-    },
-    Repo\ApiAttribute::class => function (Client $client) {
-        return new   Repo\ApiAttribute($client);
-    },
-    Client::class => DI\factory(static function (Token $token) {
-
-        return new Client([
-            'timeout' => 5.0,
-            'base_uri' => Parameters::getClientUrl(),
-            'verify' => false,
-            'headers' => [
-                'Content-Type' => 'application/x-www-form-urlencoded',
-                'IPRESSO_TOKEN' => $token->getToken(),
-                'User-Agent' => 'iPresso'
-            ]]);
-
-
-    }),
-    Token::class => function () {
-        return new Token();
-    },
+    DomianObjectFactory::class => fn() => new DomianObjectFactory(),
+    ConnactionContact::class => fn(Correspondent $correspondent) => new ConnactionContact($correspondent),
+    Correspondent::class => fn(Client $client) => new Correspondent($client),
+    ContactValidator::class => fn() => new ContactValidator(),
+    ApiAttributeValidator::class => fn(Repo\ApiAttribute $apiAttribute) => new ApiAttributeValidator($apiAttribute),
+    Authentication::class => fn(Token $token) => new Authentication($token),
+    AttributeHydrator::class => fn() => new AttributeHydrator(),
+    ContactHydrator::class => static fn(Repo\AgreementRepositoryInterface $agreementRepository, Repo\ContactCategoryRepositoryInterface $contactCategoryRepository, Repo\ContactTypeRepositoryInterface $contactTypeRepositoryInterface, Repo\AttributeOptionRepository $attributeOptionRepository, Repo\ApiAttribute $apiAttribute) => new ContactHydrator($agreementRepository, $contactCategoryRepository,$contactTypeRepositoryInterface, $attributeOptionRepository, $apiAttribute),
+    Repo\ActivityRepository::class => fn(Client $client, DomianObjectFactory $hydrator) => new Repo\ActivityRepository($client,$hydrator),
+    Repo\TagRepository::class => fn(Client $client, DomianObjectFactory $hydrator) => new Repo\TagRepository($client, $hydrator),
+    Repo\ContactRepositoryInterface::class => fn(Client $client, ContactHydrator $hydrator) => new Repo\ContactRepository($client, $hydrator),
+    Repo\AttributeOptionRepositoryInterface::class => fn(Repo\ApiAttribute $apiAttribute, AttributeHydrator $hydrator) => new Repo\AttributeOptionRepository($apiAttribute, $hydrator),
+    Repo\RegistrationRepositoryInterface::class => fn(Repo\ApiAttribute $apiAttribute, AttributeHydrator $hydrator) => new Repo\RegistrationRepository($apiAttribute, $hydrator),
+    Repo\AgreementRepositoryInterface::class => fn(Client $client, AttributeHydrator $hydrator) => new Repo\AgreementRepository($client, $hydrator),
+    Repo\SourceOfAdditionRepositoryInterface::class => fn(Repo\ApiAttribute $apiAttribute, AttributeHydrator $hydrator) => new Repo\SourceOfAdditionRepository($apiAttribute, $hydrator),
+    Repo\ContactTypeRepositoryInterface::class => fn(Client $client, AttributeHydrator $hydrator) => new Repo\ContactTypeRepository($client, $hydrator),
+    Repo\ContactCategoryRepositoryInterface::class => fn(Client $client, AttributeHydrator $hydrator) => new Repo\ContactCategoryRepository($client, $hydrator),
+    Repo\ApiAttribute::class => fn(Client $client) => new   Repo\ApiAttribute($client),
+    Client::class => DI\factory(static fn(Token $token) => new Client([
+        'timeout' => 5.0,
+        'base_uri' => Parameters::getClientUrl(),
+        'verify' => false,
+        'headers' => [
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'IPRESSO_TOKEN' => $token->getToken(),
+            'User-Agent' => 'iPresso'
+        ]])),
+    Token::class => fn() => new Token(),
 ];

@@ -40,11 +40,11 @@ class DiseaseUnitRepository implements DiseaseUnitRepositoryInterface
     {
         foreach ($this->apiAttribute->optionsByKey as $k => $v) {
             if ($k == $key) {
-                return $this->hydrator->hydrate(array(
+                return $this->hydrator->hydrate([
                     'id' => $v,
                     'key' => $k,
                     'name' => $this->apiAttribute->options->{$v}
-                ), new DiseaseUnit);
+                ], new DiseaseUnit);
             }
         }
 
@@ -55,11 +55,11 @@ class DiseaseUnitRepository implements DiseaseUnitRepositoryInterface
     {
         foreach ($this->apiAttribute->optionsByKey as $k => $v) {
             if ($id == $v) {
-                return $this->hydrator->hydrate(array(
+                return $this->hydrator->hydrate([
                     'id' => $v,
                     'key' => $k,
                     'name' => $this->apiAttribute->options->{$v}
-                ), new DiseaseUnit);
+                ], new DiseaseUnit);
             }
         }
 

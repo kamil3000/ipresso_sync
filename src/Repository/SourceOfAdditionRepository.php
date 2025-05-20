@@ -45,11 +45,11 @@ class SourceOfAdditionRepository implements SourceOfAdditionRepositoryInterface
 //        }
         foreach ($this->apiAttribute->optionsByKey as $k => $v) {
             if ($k == $key) {
-                return $this->hydrator->hydrate(array(
+                return $this->hydrator->hydrate([
                     'id' => $v,
                     'key' => $k,
                     'name' => $this->apiAttribute->options->{$v}
-                ), new SourceOfAddition);
+                ], new SourceOfAddition);
             }
         }
 
@@ -75,11 +75,11 @@ class SourceOfAdditionRepository implements SourceOfAdditionRepositoryInterface
     {
         foreach ($this->apiAttribute->optionsByKey as $key => $id) {
             if ($sId == $id) {
-                return $this->hydrator->hydrate(array(
+                return $this->hydrator->hydrate([
                     'id' => $id,
                     'key' => $key,
                     'name' => $this->apiAttribute->options->{$id}
-                ), new SourceOfAddition);
+                ], new SourceOfAddition);
             }
         }
 

@@ -14,9 +14,10 @@ use Iterator;
 class ContactAttributeCollection implements Iterator, Countable
 {
     /** @var ContactAttributeInterface[] */
-    private $var = array();
+    private array $var = [];
 
-    public function remove(string $key):self{
+    public function remove(string $key): self
+    {
         foreach ($this->var as $storageKey => $item) {
             if ($item->getKey() === $key) {
                 unset($this->var[$storageKey]);
@@ -45,51 +46,39 @@ class ContactAttributeCollection implements Iterator, Countable
         return null;
     }
 
-    public function add(ContactAttributeInterface $agreement)
+    public function add(ContactAttributeInterface $agreement): static
     {
-
         $this->var[] = $agreement;
-
         return $this;
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->var);
     }
 
-    public function current()
+    public function current(): mixed
     {
-        $var = current($this->var);
-
-        return $var;
+        return current($this->var);
     }
 
-    public function key()
+    public function key(): string|int|null
     {
-        $var = key($this->var);
-
-        return $var;
+        return key($this->var);
     }
 
-    public function next()
+    public function next(): void
     {
-        $var = next($this->var);
-        return $var;
+        next($this->var);
     }
 
-    public function valid()
+    public function valid(): bool
     {
         $key = key($this->var);
-        $var = ($key !== NULL && $key !== FALSE);
-
-        return $var;
+        return ($key !== NULL && $key !== FALSE);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function count()
+    public function count(): int
     {
         return count($this->var);
     }

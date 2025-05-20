@@ -140,7 +140,7 @@ class Sync
         try {
             $this->container->get(Authentication::class)->check();
         } catch (Exception $exception) {
-            return (new JsonResponse(array('error' => $exception->getMessage()), 403))->send();
+            return (new JsonResponse(['error' => $exception->getMessage()], 403))->send();
         }
         if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
             $this->put($callbackPut);
@@ -151,7 +151,7 @@ class Sync
             exit;
         }
 
-        return (new JsonResponse(array('type' => $_SERVER['REQUEST_METHOD']), 405))->send();
+        return (new JsonResponse(['type' => $_SERVER['REQUEST_METHOD']], 405))->send();
 
 
     }
@@ -161,7 +161,7 @@ class Sync
 
 
         if (!isset($_GET['id_contact']) or empty($_GET['id_contact'])) {
-            return (new JsonResponse(array('error' => "bark parametru id_contact​ "), 422))->send();
+            return (new JsonResponse(['error' => "bark parametru id_contact​ "], 422))->send();
         }
         $idContact = new stdClass();
 
@@ -183,7 +183,7 @@ class Sync
         try {
             $contact = $this->container->get(ContactHydrator::class)->hydrate($body['contact']);
         } catch (Exception $exception) {
-            return (new JsonResponse(array('error' => $exception->getMessage()), 400))->send();
+            return (new JsonResponse(['error' => $exception->getMessage()], 400))->send();
         }
 
         if (gettype($callback) == 'object') {

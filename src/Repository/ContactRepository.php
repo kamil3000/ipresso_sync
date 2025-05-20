@@ -20,17 +20,8 @@ use stdClass;
 
 class ContactRepository implements ContactRepositoryInterface
 {
-    /** @var Client */
-    private $client;
-
-    /** @var ContactHydrator */
-    private $hydrator;
-
-
-    public function __construct(Client $client, ContactHydrator $hydrator)
+    public function __construct(private readonly Client $client, private readonly ContactHydrator $hydrator)
     {
-        $this->client = $client;
-        $this->hydrator = $hydrator;
     }
 
     public function remove(int $id): bool
@@ -39,7 +30,7 @@ class ContactRepository implements ContactRepositoryInterface
             /** @var  $response Response */
             $response = $this->client->delete('api/2/contact/' . $id);
             return $response->getStatusCode() == 200;
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             return false;
         }
 
@@ -62,9 +53,9 @@ class ContactRepository implements ContactRepositoryInterface
         $url = 'api/2/contact/' . $contact->getIdContact() . '/activity';
 
         /** @var  $response Response */
-        $response = $this->client->post($url, array(
+        $response = $this->client->post($url, [
             'form_params' => $body,
-        ));
+        ]);
 
         return json_decode((string)$response->getBody());
     }
@@ -72,14 +63,14 @@ class ContactRepository implements ContactRepositoryInterface
 
     public function add(Contact $contact): Contact
     {
-        $body['contact'] = array();
+        $body['contact'] = [];
 
         $body['contact'][] = $this->hydrator->extract($contact);
 
         /** @var  $response Response */
-        $response = $this->client->post('api/2/contact', array(
+        $response = $this->client->post('api/2/contact', [
             'form_params' => $body,
-        ));
+        ]);
 
 
         if ($response->getStatusCode() == 403) {
@@ -124,9 +115,9 @@ class ContactRepository implements ContactRepositoryInterface
         unset($body['contact']['email']);
 
         /** @var  $response Response */
-        $response = $this->client->put('api/2/contact/' . $contact->getIdContact(), array(
+        $response = $this->client->put('api/2/contact/' . $contact->getIdContact(), [
             'form_params' => $body,
-        ));
+        ]);
         if ($response->getStatusCode() == 201) {
             return $contact;
         }
@@ -139,9 +130,9 @@ class ContactRepository implements ContactRepositoryInterface
 
         try {
             /** @var  $response Response */
-            $response = $this->client->post('api/2/contact/search', array(
+            $response = $this->client->post('api/2/contact/search', [
                 'form_params' => $body,
-            ));
+            ]);
 
 
             if ($response->getStatusCode() == 200) {

@@ -10,16 +10,14 @@ use Ipresso\Domain\ContactAttributeArrayOption;
 
 class ApiAttributeValidator implements ValidatorInterface
 {
-    private ApiAttribute $apiAttribute;
     private $attr;
 
     /**
      * ApiAttributeValidator constructor.
      * @param ApiAttribute $apiAttribute
      */
-    public function __construct(ApiAttribute $apiAttribute)
+    public function __construct(private readonly ApiAttribute $apiAttribute)
     {
-        $this->apiAttribute = $apiAttribute;
         $this->attr = $this->apiAttribute->getAttribute();
     }
 

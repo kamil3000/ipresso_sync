@@ -17,9 +17,6 @@ use stdClass;
 
 class ContactTypeRepository implements ContactTypeRepositoryInterface
 {
-    /** @var Client */
-    private $client;
-
     /** @var ContactHydrator */
     private $hydrator;
 
@@ -31,9 +28,8 @@ class ContactTypeRepository implements ContactTypeRepositoryInterface
      * @param ContactHydrator $hydrator
      */
 
-    public function __construct( Client $client, AttributeHydrator $hydrator )
+    public function __construct( private readonly Client $client, AttributeHydrator $hydrator )
     {
-        $this->client = $client;
         $this->hydrator = $hydrator;
 
         /** @var  $response Response */
@@ -62,11 +58,11 @@ class ContactTypeRepository implements ContactTypeRepositoryInterface
 
             if($item->key == $key){
 
-                return $this->hydrator->hydrate(array(
+                return $this->hydrator->hydrate([
                     'id' => $item->id,
                     'key' => $item->key,
                     'name' => $item->name
-                ), new ContactType);
+                ], new ContactType);
             }
         }
     }

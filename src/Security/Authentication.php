@@ -12,16 +12,12 @@ use Ipresso\Services\Token\Token;
 
 class Authentication
 {
-    /** @var Token */
-    private $token;
-
     /**
      * Authentication constructor.
      * @param Token $token
      */
-    public function __construct( Token $token )
+    public function __construct(private readonly Token $token)
     {
-        $this->token = $token;
     }
 
 

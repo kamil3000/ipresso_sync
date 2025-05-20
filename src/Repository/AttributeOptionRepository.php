@@ -17,16 +17,12 @@ class AttributeOptionRepository implements AttributeOptionRepositoryInterface
 {
     private $apiAttribute;
 
-    /** @var ContactHydrator */
-    private $hydrator;
-
     /**
      * DiseaseUnitRepository constructor.
      * @param ApiAttribute $apiAttribute
      */
-    public function __construct(ApiAttribute $apiAttribute, AttributeHydrator $hydrator)
+    public function __construct(ApiAttribute $apiAttribute, private readonly AttributeHydrator $hydrator)
     {
-        $this->hydrator = $hydrator;
         $this->apiAttribute = $apiAttribute->getAttribute();
     }
 
@@ -48,11 +44,11 @@ class AttributeOptionRepository implements AttributeOptionRepositoryInterface
 
         foreach ($this->apiAttribute->{$attr}->optionsByKey as $k => $v) {
             if ($k == $key) {
-                return $this->hydrator->hydrate(array(
+                return $this->hydrator->hydrate([
                     'id' => $v,
                     'key' => $k,
                     'name' => $this->apiAttribute->{$attr}->options->{$v}
-                ), new ContactAttributeArrayOption);
+                ]);
             }
         }
 
@@ -63,11 +59,11 @@ class AttributeOptionRepository implements AttributeOptionRepositoryInterface
     {
         foreach ($this->apiAttribute->{$attr}->optionsByKey as $k => $v) {
             if ($id == $v) {
-                return $this->hydrator->hydrate(array(
+                return $this->hydrator->hydrate([
                     'id' => $v,
                     'key' => $k,
                     'name' => $this->apiAttribute->{$attr}->options->{$v}
-                ), new ContactAttributeArrayOption);
+                ]);
             }
         }
 
