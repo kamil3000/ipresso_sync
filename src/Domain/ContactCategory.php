@@ -25,46 +25,29 @@ class ContactCategory
     const DZIENNIKARZ = "12";
     const KORPO = "13";
 
-    /** @var int */
-    private $id;
+    private int $id;
 
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     * @return ContactCategory
-     */
     public function setId( int $id ): ContactCategory
     {
         $this->id = $id;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return ContactCategory
-     */
     public function setName( string $name ): ContactCategory
     {
         $this->name = $name;
         return $this;
     }
-
 }

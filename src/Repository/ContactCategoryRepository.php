@@ -17,29 +17,19 @@ use stdClass;
 
 class ContactCategoryRepository implements ContactCategoryRepositoryInterface
 {
-    /** @var ContactHydrator */
-    private $hydrator;
+
 
 
     private $var;
 
-    /**
-     * ContactCategoryRepository constructor.
-     * @param Client $client
-     * @param ContactHydrator $hydrator
-     */
-
-    public function __construct(private readonly Client $client, AttributeHydrator $hydrator)
+    public function __construct(private readonly Client $client,private readonly AttributeHydrator $hydrator)
     {
-        $this->hydrator = $hydrator;
-
         /** @var  $response Response */
         $response = $this->client->get('api/2/category');
 
 
         if ($response->getStatusCode() == 200) {
             $body = json_decode((string)$response->getBody());
-//            dd($body);
             if (!($body instanceof stdClass)) {
                 throw new Exception('bład parsowania odpowiedzi');
             }
