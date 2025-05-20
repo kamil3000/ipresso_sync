@@ -25,7 +25,7 @@ class DiseaseUnitCollection implements Iterator
         return false;
     }
 
-    public function add( DiseaseUnit $diseaseUnit )
+    public function add(DiseaseUnit $diseaseUnit): static
     {
 
         $this->var[] = $diseaseUnit;
@@ -33,37 +33,30 @@ class DiseaseUnitCollection implements Iterator
         return $this;
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->var);
     }
 
-    public function current()
+    public function current(): mixed
     {
-        $var = current($this->var);
-
-        return $var;
+        return current($this->var);
     }
 
-    public function key()
+    public function key(): mixed
     {
-        $var = key($this->var);
-
-        return $var;
+        return key($this->var);
     }
 
     public function next(): void
     {
-        $var = next($this->var);
-        return $var;
+        next($this->var);
     }
 
-    public function valid()
+    public function valid(): bool
     {
         $key = key($this->var);
-        $var = ($key !== NULL && $key !== FALSE);
-
-        return $var;
+        return ($key !== NULL && $key !== FALSE);
     }
 
 }
