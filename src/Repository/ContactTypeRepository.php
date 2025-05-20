@@ -17,24 +17,13 @@ use stdClass;
 
 class ContactTypeRepository implements ContactTypeRepositoryInterface
 {
-    /** @var ContactHydrator */
-    private $hydrator;
-
     private $var;
 
-    /**
-     * ContactCategoryRepository constructor.
-     * @param Client $client
-     * @param ContactHydrator $hydrator
-     */
-
-    public function __construct( private readonly Client $client, AttributeHydrator $hydrator )
+    public function __construct( private readonly Client $client,private AttributeHydrator $hydrator )
     {
-        $this->hydrator = $hydrator;
 
         /** @var  $response Response */
         $response = $this->client->get('api/2/type');
-
 
         if ($response->getStatusCode() == 200) {
             $body = json_decode((string)$response->getBody());
@@ -55,9 +44,7 @@ class ContactTypeRepository implements ContactTypeRepositoryInterface
     public function getByKey( $key ): ContactType
     {
         foreach ($this->var as $item){
-
             if($item->key == $key){
-
                 return $this->hydrator->hydrate([
                     'id' => $item->id,
                     'key' => $item->key,
@@ -65,5 +52,6 @@ class ContactTypeRepository implements ContactTypeRepositoryInterface
                 ], new ContactType);
             }
         }
+        throw new Exception('brak klucza : '.$key);
     }
 }
