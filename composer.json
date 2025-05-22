@@ -17,8 +17,7 @@
   "require": {
     "php": ">=8.2",
     "guzzlehttp/guzzle": "^7.6|^7.7|^7.8",
-    "php-di/php-di": "^7.0",
-    "symfony/http-foundation": "^6.4"
+    "php-di/php-di": "^7.0"
   },
   "require-dev": {
     "symfony/var-dumper": "v7.2.0"
