@@ -6,13 +6,9 @@ namespace Ipresso\Domain;
 
 class ContactAttributeArrayOption
 {
-    /** @var int */
     private $id;
-
-    /** @var string */
     private $key;
 
-    /** @var string */
     private $name;
 
     /**

@@ -48,7 +48,7 @@ class AttributeOptionRepository implements AttributeOptionRepositoryInterface
                     'id' => $v,
                     'key' => $k,
                     'name' => $this->apiAttribute->{$attr}->options->{$v}
-                ]);
+                ], new ContactAttributeArrayOption );
             }
         }
 
@@ -63,7 +63,7 @@ class AttributeOptionRepository implements AttributeOptionRepositoryInterface
                     'id' => $v,
                     'key' => $k,
                     'name' => $this->apiAttribute->{$attr}->options->{$v}
-                ]);
+                ], new ContactAttributeArrayOption);
             }
         }
 

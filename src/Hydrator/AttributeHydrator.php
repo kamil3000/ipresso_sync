@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kkaczy
- * Date: 16.08.2018
- * Time: 09:20
- */
 
 namespace Ipresso\Hydrator;
-
 
 use ReflectionClass;
 
